@@ -7,9 +7,9 @@ import "./models/user.js";
 import setUpRoutes from "./routes.js";
 
 // connect to Mongo DB
-await mongoose.connect("mongodb://127.0.0.1:27017/AUTH");
+await mongoose.connect("mongodb://127.0.0.1:27017/CAS");
 // register User model with Mongoose
-// mongoose.model("User", UserSchema);
+//mongoose.model("User", UserSchema);
 
 
 // initialize the server
