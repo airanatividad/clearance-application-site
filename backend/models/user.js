@@ -2,10 +2,18 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 
 const UserSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  email: { type: String, required: true },
-  password: { type: String, required: true }
-});
+    fname: { type: String, required: true },
+    mname: { type: String, required: true },
+    lname: { type: String, required: true },
+    studno: { type: String, required: true },
+    
+    email: { type: String, required: true },
+    password: { type: String, required: true },
+
+    usertype: { type: Number },
+    applications: [{type: mongoose.Schema.Types.ObjectId, ref: 'Application'}], //reference to Application
+    adviser: { type: mongoose.Schema.Types.ObjectId, ref: 'User'} //reference to User
+  });
 
 UserSchema.pre("save", function(next) {
   const user = this;

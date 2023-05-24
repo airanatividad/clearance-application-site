@@ -1,15 +1,22 @@
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 
-
 // get user model registered in Mongoose
 const User = mongoose.model("User");
 
 const signUp = async (req, res) => {
   const newuser = new User({
-    name: req.body.name,
+    fname: req.body.fname,
+    mname: req.body.mname,
+    lname: req.body.lname,
+    studno: req.body.studno,
+    
     email: req.body.email,
-    password: req.body.password
+    password: req.body.password,
+
+    usertype: req.body.usertype,
+    applications: req.body.applications,
+    adviser: req.body.adviser,
   });
 
   const result = await newuser.save();
