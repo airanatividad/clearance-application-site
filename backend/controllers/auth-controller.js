@@ -1,5 +1,5 @@
-import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
+import mongoose from 'mongoose';
 
 // get user model registered in Mongoose
 const User = mongoose.model("User");
@@ -88,4 +88,5 @@ const checkIfLoggedIn = async (req, res) => {
   }
 }
 
-export { signUp, login, checkIfLoggedIn }
+export { signUp, login, checkIfLoggedIn };
+

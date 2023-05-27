@@ -1,9 +1,11 @@
-import express from "express";
 import cookieParser from "cookie-parser";
+import express from "express";
 import mongoose from "mongoose";
 
-// import UserSchema from "./models/user.js";
+// import models
+import "./models/apps_submission_remark.js";
 import "./models/user.js";
+
 import setUpRoutes from "./routes.js";
 
 // connect to Mongo DB

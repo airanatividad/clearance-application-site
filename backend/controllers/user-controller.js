@@ -62,4 +62,53 @@ const addStudent = async (req, res) => {
   }
 };
 
-export { getAllUsers, getAllStudents, getStudentByEmail, getUserTypeByEmail, addStudent };
+const deleteUserByEmail = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    const result = await User.deleteOne({ email });
+
+    if(result.deletedCount == 1){
+      res.send({ success: true });
+    } else {
+      res.send({ success: false });
+     }
+
+  } catch (error) {
+    res.status(500).send({ error: 'Failed to delete user.' });
+  }
+};
+
+const getUserAdviserByEmail = async (req, res) => {
+  try {
+    const { email } = req.query;
+
+    const student = await User.findOne({ email });
+
+    if (!student) {
+      return res.status(404).send({ error: 'Student not found.' });
+    }
+    console.log(student.email);
+
+    const adviserId = student.adviser;
+
+    const users = await User.find({ _id: adviserId });
+
+    if (users.length === 0) {
+      return res.status(404).send({ error: 'Adviser not found.' });
+    }
+    res.send(users);
+    
+  } catch (error) {
+    res.status(500).send({ error: 'Failed to retrieve student adviser.' });
+  }
+};
+
+
+
+
+
+export { getAllUsers, getAllStudents, getStudentByEmail, getUserTypeByEmail, addStudent, deleteUserByEmail, getUserAdviserByEmail };
+
+
+
