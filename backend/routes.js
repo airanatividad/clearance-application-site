@@ -1,4 +1,11 @@
-import { addApplication, deleteApplication, getAllApplications, getApplicationsByEmail, getCurrentApplicationByEmail } from './controllers/apps-controller.js';
+import { 
+  addApplication,
+  getAllApplications,
+  getApplicationsByEmail,
+  getCurrentApplicationByEmail,
+  getApplicationStatusByEmail,
+  updateAppStatusByEmail,
+  deleteApplication } from './controllers/apps-controller.js';
 import { checkIfLoggedIn, login, signUp } from "./controllers/auth-controller.js";
 import { getAllRemarks } from './controllers/remarks-controller.js';
 import { getAllSubmissions } from './controllers/sub-controller.js';
@@ -26,6 +33,8 @@ const setUpRoutes = (app) => {
   app.post("/add-application", addApplication);
   app.post("/delete-application", deleteApplication);
   app.get("/get-applications-by-email", getApplicationsByEmail);
+  app.get("/get-app-status-by-email", getApplicationStatusByEmail);
+  app.post("/update-app-status-by-email", updateAppStatusByEmail);
   app.post("/get-current-application-by-email", getCurrentApplicationByEmail);
 
   // remarks

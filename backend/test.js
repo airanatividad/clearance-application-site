@@ -1,16 +1,35 @@
 import needle from 'needle';
 
-needle.post("http://localhost:3001/add-application",
+// needle.post("http://localhost:3001/add-application",
+//     {   
+//         email: "nicole@gmail.com",
+//         remark: "accept me ma'am",
+//         commenter: "paula@gmail.com", 
+//         link: "https://github.com/CMSC100/exercise-3-import-export-npm-usage-airanatividad/blob/main/functions.js",
+//     },
+//     (err, res) => {
+//         console.log(res.body)
+// })
+
+
+// needle.get("http://localhost:3001/get-applications-by-email?email=aira@gmail.com", (err,res) => {
+//     if (!err) {
+//         console.log(res.body)
+//     }
+// })
+
+// needle.get("http://localhost:3001/get-app-status-by-email?email=nicole@gmail.com",
+//     (err,res) => {
+//         if (!err) {
+//             console.log(res.body)
+//     }
+// })
+
+
+needle.post("http://localhost:3001/update-app-status-by-email",
     {   
-        submission_id: '6471e6037b34a74501c5717f',
-        commenter_id: '6471e6037b34a74501c5717f',
-        submitter_id:'6471e6037b34a74501c5717f',
-        app_id: '6471e6037b34a74501c5717f',
-        fname: "Andrea", 
-        mname: "Paula",
-        lname: "Natividad",
-        email: "andrea@gmail.com",
-        link: "https://github.com/CMSC100/exercise-3-import-export-npm-usage-airanatividad/blob/main/functions.js",
+        email: "nicole@gmail.com",
+        status: "Pending",
     },
     (err, res) => {
         console.log(res.body)

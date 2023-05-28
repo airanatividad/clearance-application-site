@@ -14,6 +14,7 @@ const signUp = async (req, res) => {
     email: req.body.email,
     password: req.body.password,
 
+    status: "Pending",
     usertype: 1,
     applications: req.body.applications,
     adviser: req.body.adviser,
