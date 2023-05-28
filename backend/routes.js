@@ -5,10 +5,13 @@ import {
   getCurrentApplicationByEmail,
   getApplicationStatusByEmail,
   updateAppStatusByEmail,
+  updateRemarksByEmail,
+  updateSubmissionLinkByEmail,
+  getApplicationsByStatus,
   deleteApplication } from './controllers/apps-controller.js';
 import { checkIfLoggedIn, login, signUp } from "./controllers/auth-controller.js";
-import { getAllRemarks } from './controllers/remarks-controller.js';
-import { getAllSubmissions } from './controllers/sub-controller.js';
+// import { getAllRemarks } from './controllers/remarks-controller.js';
+// import { getAllSubmissions } from './controllers/sub-controller.js';
 import { addStudent, deleteUserByEmail, getAllStudents, getAllUsers, getStudentByEmail, getUserAdviserByEmail, getUserTypeByEmail } from "./controllers/user-controller.js";
 
 const setUpRoutes = (app) => {
@@ -35,13 +38,17 @@ const setUpRoutes = (app) => {
   app.get("/get-applications-by-email", getApplicationsByEmail);
   app.get("/get-app-status-by-email", getApplicationStatusByEmail);
   app.post("/update-app-status-by-email", updateAppStatusByEmail);
+  app.post("/update-remarks-by-email", updateRemarksByEmail);
+  app.post("/update-submission-link-by-email", updateSubmissionLinkByEmail);
   app.post("/get-current-application-by-email", getCurrentApplicationByEmail);
 
+  //for approver
+  app.get("/get-applications-by-status", getApplicationsByStatus);
   // remarks
-  app.get("/get-remarks", getAllRemarks);
+  // app.get("/get-remarks", getAllRemarks);
   
   // submissions
-  app.get("/get-submissions", getAllSubmissions);
+  // app.get("/get-submissions", getAllSubmissions);
 
 }
 

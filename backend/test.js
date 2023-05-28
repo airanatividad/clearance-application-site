@@ -26,11 +26,46 @@ import needle from 'needle';
 // })
 
 
-needle.post("http://localhost:3001/update-app-status-by-email",
-    {   
-        email: "nicole@gmail.com",
-        status: "Pending",
-    },
-    (err, res) => {
-        console.log(res.body)
+// needle.post("http://localhost:3001/update-app-status-by-email",
+//     {   
+//         email: "nicole@gmail.com",
+//         status: "Pending",
+//     },
+//     (err, res) => {
+//         console.log(res.body)
+// })
+
+
+// needle.post("http://localhost:3001/update-remarks-by-email",
+//     {   
+//         email: "nicole@gmail.com",
+//         remark: "okay done",
+//         commenter: "aira@gmail.com"
+//     },
+//     (err, res) => {
+//         console.log(res.body)
+// })
+
+// needle.post("http://localhost:3001/update-submission-link-by-email",
+//     {   
+//         email: "nicole@gmail.com",
+//         link: "github.com",
+//     },
+//     (err, res) => {
+//         console.log(res.body)
+// })
+
+// needle.get("http://localhost:3001/get-applications-by-status?status=Pending", (err,res) => {
+//     if (!err) {
+//         console.log(res.body)
+//     }
+// })
+
+needle.get("http://localhost:3001/get-applications", (err,res) => {
+    if (!err) {
+        for (let app in res.body) {
+            console.log(res.body[app].remarks) //get remarks
+            console.log(res.body[app].submission) //get submission
+        }
+    }
 })

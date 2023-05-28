@@ -14,13 +14,13 @@ const addApplication = async (req, res) => {
       step: 1,
       remarks: [{
         remark: req.body.remark,
-        date: Date.now(),
+        date: Date(Date.now()),
         commenter: req.body.commenter, //email
         step: 1
       }],
       submission: {
         link: req.body.link,
-        date: Date.now(),
+        date: Date(Date.now()),
         step: 1
       },
     });
@@ -129,6 +129,63 @@ const updateAppStatusByEmail = async (req, res) => {
   }
 };
 
+const updateRemarksByEmail = async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.body.email });
+    if (!user) {
+      return res.status(404).send({ error: 'User not found.' });
+    }
+
+    const remarks = {
+      remark: req.body.remark,
+      date: Date(Date.now()),
+      commenter: req.body.commenter, //email
+      step: 1
+    };
+
+    //find the latest application id of user
+    const latestApp = user.applications.slice(-1);
+
+    //using the application id, update status
+    const application = await Application.updateOne({ _id: latestApp },{$push:{remarks: remarks}})
+    if (application.acknowledged) {
+      res.send({ success: true });
+    } else {
+      res.send({ success: false });
+    }
+  } catch (error) {
+    res.status(500).send({ error: 'Failed to retrieve applications.' });
+  }
+};
+
+const updateSubmissionLinkByEmail = async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.body.email });
+    if (!user) {
+      return res.status(404).send({ error: 'User not found.' });
+    }
+
+    const submission = {
+      link: req.body.link,
+      date: Date(Date.now()),
+      step: 1
+    };
+
+    //find the latest application id of user
+    const latestApp = user.applications.slice(-1);
+
+    //using the application id, update status
+    const application = await Application.updateOne({ _id: latestApp },{$set:{submission: submission}})
+    if (application.acknowledged) {
+      res.send({ success: true });
+    } else {
+      res.send({ success: false });
+    }
+  } catch (error) {
+    res.status(500).send({ error: 'Failed to retrieve applications.' });
+  }
+};
+
 const deleteApplication = async (req, res) => {
   try {
     const { applicationId, userId } = req.query;
@@ -155,6 +212,20 @@ const deleteApplication = async (req, res) => {
   }
 };
 
+//APPROVER
+const getApplicationsByStatus = async (req, res) => {
+  try {
+    const application = await Application.find({status: req.query.status});
+    if (!application) {
+      return res.status(404).send({ error: 'Application not found.' });
+    }
+    // sends array of applications
+    res.send(application);
+  } catch (error) {
+    res.status(500).send({ error: 'Failed to retrieve applications.' });
+  }
+};
+
 
 export { 
   addApplication,
@@ -163,5 +234,8 @@ export {
   getCurrentApplicationByEmail,
   getApplicationStatusByEmail,
   updateAppStatusByEmail,
+  updateRemarksByEmail,
+  updateSubmissionLinkByEmail,
+  getApplicationsByStatus,
   deleteApplication };
 
