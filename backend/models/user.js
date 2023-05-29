@@ -10,8 +10,8 @@ const UserSchema = new mongoose.Schema({
     email: { type: String, required: true },
     password: { type: String, required: true },
 
-    status: { type: String },
-    usertype: { type: Number },
+    status: { type: String, required: true },
+    usertype: { type: Number, required: true},
     applications: [{type: mongoose.Schema.Types.ObjectId, ref: 'Application'}], //reference to Application
     adviser: { type: mongoose.Schema.Types.ObjectId, ref: 'User'} //reference to User
   });

@@ -3,7 +3,7 @@ import express from "express";
 import mongoose from "mongoose";
 
 // import models
-import "./models/apps_submission_remark.js";
+import "./models/application.js";
 import "./models/user.js";
 
 import setUpRoutes from "./routes.js";

@@ -1,5 +1,24 @@
 import needle from 'needle';
 
+// needle.post("http://localhost:3001/add-student",
+//   {
+//     fname: "First",
+//     mname: "Middle",
+//     lname: "Last",
+//     studno: "2023-12345",
+//     email: "nicole@gmail.com",
+//     password: "password123",
+//     status: "Pending",
+//     usertype: 1,
+//     applications: [], // reference to Application
+//     // adviser: null,
+//   },
+//   (err, res) => {
+//     console.log(res.body);
+//   }
+// );
+
+
 // needle.post("http://localhost:3001/add-application",
 //     {   
 //         email: "nicole@gmail.com",
@@ -8,15 +27,26 @@ import needle from 'needle';
 //         link: "https://github.com/CMSC100/exercise-3-import-export-npm-usage-airanatividad/blob/main/functions.js",
 //     },
 //     (err, res) => {
-//         console.log(res.body)
-// })
+//         console.log(res.body);
+//     }
+// );
 
 
-// needle.get("http://localhost:3001/get-applications-by-email?email=aira@gmail.com", (err,res) => {
+// needle.get("http://localhost:3001/get-applications-by-email?email=nicole@gmail.com", (err,res) => {
 //     if (!err) {
 //         console.log(res.body)
 //     }
 // })
+
+// needle.post("http://localhost:3001/update-user-status-by-email",
+//   {
+//     email: "nicole@gmail.com",
+//     status: "Approved",
+//   },
+//   (err, res) => {
+//     console.log(res.body);
+//   }  
+// );
 
 // needle.get("http://localhost:3001/get-app-status-by-email?email=nicole@gmail.com",
 //     (err,res) => {
@@ -61,11 +91,11 @@ import needle from 'needle';
 //     }
 // })
 
-needle.get("http://localhost:3001/get-applications", (err,res) => {
-    if (!err) {
-        for (let app in res.body) {
-            console.log(res.body[app].remarks) //get remarks
-            console.log(res.body[app].submission) //get submission
-        }
-    }
-})
+// needle.get("http://localhost:3001/get-applications", (err,res) => {
+//     if (!err) {
+//         for (let app in res.body) {
+//             console.log(res.body[app].remarks) //get remarks
+//             console.log(res.body[app].submission) //get submission
+//         }
+//     }
+// })

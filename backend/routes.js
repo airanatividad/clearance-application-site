@@ -1,18 +1,17 @@
-import { 
+import {
   addApplication,
+  deleteApplication,
   getAllApplications,
-  getApplicationsByEmail,
-  getCurrentApplicationByEmail,
   getApplicationStatusByEmail,
+  getApplicationsByEmail,
+  getApplicationsByStatus,
+  getCurrentApplicationByEmail,
   updateAppStatusByEmail,
   updateRemarksByEmail,
-  updateSubmissionLinkByEmail,
-  getApplicationsByStatus,
-  deleteApplication } from './controllers/apps-controller.js';
+  updateSubmissionLinkByEmail
+} from './controllers/apps-controller.js';
 import { checkIfLoggedIn, login, signUp } from "./controllers/auth-controller.js";
-// import { getAllRemarks } from './controllers/remarks-controller.js';
-// import { getAllSubmissions } from './controllers/sub-controller.js';
-import { addStudent, deleteUserByEmail, getAllStudents, getAllUsers, getStudentByEmail, getUserAdviserByEmail, getUserTypeByEmail } from "./controllers/user-controller.js";
+import { addStudent, deleteUserByEmail, getAllStudents, getAllUsers, getStudentByEmail, getUserAdviserByEmail, getUserStatusByEmail, getUserTypeByEmail, updateUserStatus } from "./controllers/user-controller.js";
 
 const setUpRoutes = (app) => {
   app.get("/", (req, res) => { res.send("API Home") });
@@ -28,8 +27,10 @@ const setUpRoutes = (app) => {
   app.get("/get-student-by-email", getStudentByEmail);
   app.get("/get-usertype-by-email", getUserTypeByEmail);
   app.get("/get-user-adviser-by-email", getUserAdviserByEmail);
-  app.post("/addStudent", addStudent);
+  app.get("/get-user-status-by-email", getUserStatusByEmail);
+  app.post("/add-student", addStudent);
   app.post("/delete-user-by-email", deleteUserByEmail);
+  app.post("/update-user-status-by-email", updateUserStatus);
 
   // applications
   app.get("/get-applications", getAllApplications);
@@ -44,11 +45,7 @@ const setUpRoutes = (app) => {
 
   //for approver
   app.get("/get-applications-by-status", getApplicationsByStatus);
-  // remarks
-  // app.get("/get-remarks", getAllRemarks);
-  
-  // submissions
-  // app.get("/get-submissions", getAllSubmissions);
+
 
 }
 

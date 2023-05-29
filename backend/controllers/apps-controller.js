@@ -1,8 +1,6 @@
 import mongoose from 'mongoose';
 
 const Application = mongoose.model("Application");
-const Remarks = mongoose.model("Remarks");
-const Submission = mongoose.model("Submission");
 const User = mongoose.model("User");
 
 // STUDENT !
@@ -227,7 +225,7 @@ const getApplicationsByStatus = async (req, res) => {
 };
 
 
-export { 
+export {
   addApplication,
   getAllApplications,
   getApplicationsByEmail,
@@ -237,5 +235,6 @@ export {
   updateRemarksByEmail,
   updateSubmissionLinkByEmail,
   getApplicationsByStatus,
-  deleteApplication };
+  deleteApplication
+};
 
