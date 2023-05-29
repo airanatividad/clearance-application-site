@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { redirect } from 'react-router-dom';
-// import "./index.css";
+import styles from "./index.css"
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 

@@ -1,6 +1,7 @@
 import Cookies from "universal-cookie";
 import { useState, useEffect } from "react";
 import { useNavigate, useLoaderData } from 'react-router-dom';
+import React from "react";
 
 export default function Dashboard() {
   const username = localStorage.getItem("username")

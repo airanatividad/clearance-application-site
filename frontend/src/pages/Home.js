@@ -1,5 +1,6 @@
 // import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import React from "react";
 
 export default function Home() {
 
@@ -54,7 +55,7 @@ export default function Home() {
         <button onClick={signUp}>Sign Up</button>
       </form>
 
-      <Link to={`/login`}>Login</Link>
+      <Link to={`/login`} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Login</Link>
     </>
   );
 }

@@ -1,6 +1,8 @@
 
 import { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 
 import Cookies from 'universal-cookie';
 
@@ -59,8 +61,10 @@ export default function LogIn() {
       <form id="log-in">
         <input id="l-email" placeholder="email" />
         <input id="l-password" type="password" placeholder="password" />
-        <button onClick={logIn}>Log In</button>
+        <button class='bg-blue' onClick={logIn}>Log In</button>
       </form>
+      <Link to={`/`} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Sign Up</Link>
+
     </>
   )
 }
