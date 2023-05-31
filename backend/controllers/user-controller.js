@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const User = mongoose.model("User");
 
-const getAllUsers= async (req, res) => {
+const getAllUsers = async (req, res) => {
   try {
     const students = await User.find({});
     res.send(students);
@@ -91,6 +91,36 @@ const getUserStatusByEmail = async (req, res) => {
 
 }
 
+const getPendingUsers = async (req, res) => {
+  try {
+    const user = await User.find({status: "Pending"});
+    if (!user) {
+      return res.status(404).send({ error: 'Application not found.' });
+    }
+    // sends array of applications
+    res.send(user);
+  } catch (error) {
+    res.status(500).send({ error: 'Failed to retrieve applications.' });
+  }
+}
+
+const updateAdviserByStudno = async (req, res) => {
+  try {
+    const user = await User.updateOne({ studno: req.body.studno },{$set:{adviser: User({ _id: req.body.adviser_id })}})
+    if (!user) {
+      return res.status(404).send({ error: 'User not found.' });
+    }
+
+    if (user.acknowledged) {
+      res.send({ success: true });
+    } else {
+      res.send({ success: false });
+    }
+  } catch (error) {
+    res.status(500).send({ error: 'Failed to retrieve applications.' });
+  }
+};
+
 const addStudent = async (req, res) => {
   try {
     const { fname, mname, lname, studno, email, password, status, usertype, applications, adviser } = req.body;
@@ -148,9 +178,18 @@ const deleteUserByEmail = async (req, res) => {
   }
 };
 
-
-
-export { getAllUsers, getAllStudents, getStudentByEmail, getUserTypeByEmail, getUserAdviserByEmail, getUserStatusByEmail, addStudent, deleteUserByEmail, updateUserStatus };
+export { 
+  getAllUsers,
+  getAllStudents,
+  getStudentByEmail,
+  getUserTypeByEmail,
+  getUserAdviserByEmail,
+  getUserStatusByEmail,
+  addStudent,
+  deleteUserByEmail,
+  updateUserStatus,
+  getPendingUsers,
+  updateAdviserByStudno };
 
 
 

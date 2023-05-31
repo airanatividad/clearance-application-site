@@ -11,7 +11,18 @@ import {
   updateSubmissionLinkByEmail
 } from './controllers/apps-controller.js';
 import { checkIfLoggedIn, login, signUp } from "./controllers/auth-controller.js";
-import { addStudent, deleteUserByEmail, getAllStudents, getAllUsers, getStudentByEmail, getUserAdviserByEmail, getUserStatusByEmail, getUserTypeByEmail, updateUserStatus } from "./controllers/user-controller.js";
+import { 
+  addStudent,
+  deleteUserByEmail,
+  getAllStudents,
+  getAllUsers,
+  getStudentByEmail,
+  getUserAdviserByEmail,
+  getUserStatusByEmail,
+  getUserTypeByEmail,
+  updateUserStatus,
+  getPendingUsers,
+  updateAdviserByStudno } from "./controllers/user-controller.js";
 
 const setUpRoutes = (app) => {
   app.get("/", (req, res) => { res.send("API Home") });
@@ -46,7 +57,9 @@ const setUpRoutes = (app) => {
   //for approver
   app.get("/get-applications-by-status", getApplicationsByStatus);
 
-
+  //for admin
+  app.get("/get-pending-users", getPendingUsers);
+  app.post("/update-adviser-by-studno",updateAdviserByStudno);
 }
 
 export default setUpRoutes;
