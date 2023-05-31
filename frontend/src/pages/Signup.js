@@ -1,9 +1,9 @@
 // import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import React from "react";
+import { Link } from "react-router-dom";
 import NavBar from "../components/NavBar";
 
-export default function HomeTry() {
+export default function Signup() {
 
   function signUp(e) {
     e.preventDefault();

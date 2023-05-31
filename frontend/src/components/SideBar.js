@@ -1,7 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Outlet, useLoaderData, useNavigate } from 'react-router-dom';
+import Cookies from "universal-cookie";
 import DrawerButton from "./SideButton";
 
 export default function SideBar() {
+    const [isLoggedIn, setIsLoggedIn] = useState(useLoaderData())
+    const navigate = useNavigate()
+  
+    useEffect(() => {
+      if (!isLoggedIn) {
+        navigate(`/login`)
+      }
+    }, [isLoggedIn, navigate])
+  
+    function logout() {
+      const cookies = new Cookies();
+      cookies.remove("authToken");
+  
+      localStorage.removeItem("username");
+  
+      setIsLoggedIn(false)
+    }
+    
     return (
         <>
             <div class="flex">
@@ -23,9 +43,12 @@ export default function SideBar() {
                             <DrawerButton/>
                             <DrawerButton/>
                             <DrawerButton/>
+                            {/* temporary log out button */}
+                            <button onClick={logout} class="flex flex-none flex-col rounded-md bg-100-payne pt-3 shadow shadow-p-dblue/50 hover:bg-black h-16 w-60 m-1">Log Out</button> 
                         </div>                        
                     </div>
                 </aside>
+                <Outlet />
             </div>
         </>
     );
