@@ -178,7 +178,7 @@ const deleteUserByEmail = async (req, res) => {
   }
 };
 
-export { 
+export {
   getAllUsers,
   getAllStudents,
   getStudentByEmail,
@@ -189,7 +189,8 @@ export {
   deleteUserByEmail,
   updateUserStatus,
   getPendingUsers,
-  updateAdviserByStudno };
+  updateAdviserByStudno
+};
 
 
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Outlet, useLoaderData, useNavigate } from 'react-router-dom';
 import Cookies from "universal-cookie";
-import DrawerButton from "./SideButton";
+import SideButton from "./SideButton";
 
 export default function SideBar() {
     const [isLoggedIn, setIsLoggedIn] = useState(useLoaderData())
@@ -40,9 +40,11 @@ export default function SideBar() {
                             </p>                            
                         {/* buttons */}
                         <div>
-                            <DrawerButton/>
-                            <DrawerButton/>
-                            <DrawerButton/>
+                            <SideButton redirectLink='/dashboard' label="Dashboard" />
+                            <SideButton redirectLink='/manage/acc' label="Manage Accounts" />
+                            <SideButton redirectLink='/manage/apps' label="Manage Applications" />
+                            <SideButton redirectLink='/manage/stud' label="Student Account Approval" />
+
                             {/* temporary log out button */}
                             <button onClick={logout} class="flex flex-none flex-col rounded-md bg-100-payne pt-3 shadow shadow-p-dblue/50 hover:bg-black h-16 w-60 m-1">Log Out</button> 
                         </div>                        

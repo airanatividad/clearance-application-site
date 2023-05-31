@@ -1,19 +1,23 @@
-import React from "react";
-import NavBar from "../components/NavBar";
-import ClearanceForm from "../components/ClearanceForm";
-import SideBar from "../components/SideBar";
-import ApplicationList from "../components/ApplicationList";
-import ApproversForm from "../components/ApproversForm";
-import ApproveList from "../components/ApproveList";
-import StudentsList from "../components/StudentsList";
+import React, { useEffect, useState } from "react";
+import StudentAccount from "../components/StudentAccount";
 
 export default function ManageStudents() {
+    const [students, setStudents] = useState([])
+
+    useEffect(() => {
+        // fetch data from the API as the page loads
+        fetch("http://localhost:3001/get-pending-users")
+          .then(response => response.json())
+          .then(body => {
+            setStudents(body)
+          })
+      }, [])
+
+    function changeHandler(id) {
+        setStudents(prevStudents => prevStudents.filter(student => student._id !== id));
+    }
     return (
         <>
-        {/* nakacolumn navbar and baba */}
-        <NavBar/>
-        <div class="flex flex-row ">
-            {/* nakacolumn title and component*/}
             <div class="w-[100%] flex flex-col">
                 <div class="flex justify-center container container mx-auto">
                     <h1 class="font-extrabold flex text-4xl mt-20 mb-5">
@@ -21,13 +25,13 @@ export default function ManageStudents() {
                     </h1>
                 </div>
                 <div class="flex flex-col items-center place-content-center">
-                    <StudentsList class="" />
+                    {
+                        students.map((student, i) => 
+                            <StudentAccount class="" student={student} onChange={changeHandler}/>
+                        )
+                    }
                 </div>  
-            </div>            
-        </div>
-
-
-                
+            </div>             
         </>
 
     );

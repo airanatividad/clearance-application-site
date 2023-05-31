@@ -13,8 +13,8 @@ import ClearanceForm from './components/ClearanceForm';
 import AppCO from './components/COView';
 import NavBar from './components/NavBar';
 import SideBar from './components/SideBar';
-import DrawerButton from './components/SideButton';
-import StudentsList from './components/StudentsList';
+import SideButton from './components/SideButton';
+import StudentAccount from './components/StudentAccount';
 import ManageAccounts from './pages/AdminPage';
 import ManageApps from './pages/AdviserPage';
 import Dashboard from './pages/Dashboard';
@@ -64,9 +64,9 @@ const router = createBrowserRouter([
   { path: '/', element: <NavBar />, loader:checkIfLoggedInOnDash, children:[
     { path: '/', element: <SideBar />, children:[
       { path: '/dashboard', element: <Dashboard /> },       //page view of student managing applications
-      { path: '/manageacc', element: <ManageAccounts /> },      //page view of admin managing approvers
-      { path: '/managestud', element: <ManageStudents /> },     //page view for admin for managing students
-      { path: '/manageapps', element: <ManageApps /> },         //page view for managing clearance requests on adviser's end (just change component/components' fields for CO)
+      { path: '/manage/acc', element: <ManageAccounts /> },      //page view of admin managing approvers
+      { path: '/manage/stud', element: <ManageStudents /> },     //page view for admin for managing students
+      { path: '/manage/apps', element: <ManageApps /> },         //page view for managing clearance requests on adviser's end (just change component/components' fields for CO)
       ]
     },
     ]
@@ -76,7 +76,7 @@ const router = createBrowserRouter([
 
   { path: '/navbar', element: <NavBar />},                 //component for navigation bar 
   { path: '/sidebar', element: <SideBar />},               //component for side bar
-  { path: '/drawerbutton', element: <DrawerButton />},     //component for buttons on side bar
+  { path: '/sidebutton', element: <SideButton />},     //component for buttons on side bar
   { path: '/clearance', element: <ClearanceForm />},       //component for clearance apply form
   { path: '/applist', element: <ApplicationList />},       //component for application already submitted
   { path: '/trialadviser', element: <AppAdviser />},       //component for sent application on adviser's end
@@ -84,7 +84,7 @@ const router = createBrowserRouter([
 
   { path: '/appform', element: <ApproversForm />},         //component for application form to be filled out
 
-  { path: '/viewstud', element: <StudentsList />},         //component for students for viewing details by admin
+  { path: '/viewstud', element: <StudentAccount />},         //component for students for viewing details by admin
 ])
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

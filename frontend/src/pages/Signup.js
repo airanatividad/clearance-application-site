@@ -7,8 +7,19 @@ export default function Signup() {
 
   function signUp(e) {
     e.preventDefault();
+    const fname = document.getElementById("s-fname").value;
+    const mname = document.getElementById("s-mname").value;
+    const lname = document.getElementById("s-lname").value;
+    const studno = document.getElementById("s-studno").value;
 
-    // form validation goes here
+    const email = document.getElementById("s-email").value;
+    const password = document.getElementById("s-password").value;
+    
+    // form validation 
+    if (fname === "" || mname === "" || lname === "" || studno === "" || email === "" || password === "") {
+      alert("Please enter all required fields.");
+      return;
+    }
 
     fetch("http://localhost:3001/signup", {
       method: "POST",
@@ -16,13 +27,13 @@ export default function Signup() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        fname: document.getElementById("s-fname").value,
-        mname: document.getElementById("s-mname").value,
-        lname: document.getElementById("s-lname").value,
-        studno: document.getElementById("s-studno").value,
+        fname: fname,
+        mname: mname,
+        lname: lname,
+        studno: studno,
 
-        email: document.getElementById("s-email").value,
-        password: document.getElementById("s-password").value,
+        email: email,
+        password: password,
       }),
     })
       .then((response) => response.json())

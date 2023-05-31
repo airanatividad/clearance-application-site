@@ -20,6 +20,12 @@ export default function LogIn() {
     e.preventDefault();
 
     // form validation goes here
+    const email = document.getElementById("l-email").value
+    const password = document.getElementById("l-password").value
+    if (email === "" || password === "") {
+      alert("Please enter all required fields.");
+      return;
+    }
 
     fetch("http://localhost:3001/login",
       {
@@ -28,8 +34,8 @@ export default function LogIn() {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          email: document.getElementById("l-email").value,
-          password: document.getElementById("l-password").value
+          email: email,
+          password: password
         })
       })
       .then(response => response.json())
