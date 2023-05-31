@@ -8,22 +8,24 @@ import {
   getCurrentApplicationByEmail,
   updateAppStatusByEmail,
   updateRemarksByEmail,
-  updateSubmissionLinkByEmail
+  updateSubmissionLinkByEmail,
+  returnApplicationByEmail
 } from './controllers/apps-controller.js';
 import { checkIfLoggedIn, login, signUp } from "./controllers/auth-controller.js";
-import {
-  addStudent,
+import { 
+  addApprover,
   deleteUserByEmail,
   getAllStudents,
   getAllUsers,
-  getPendingUsers,
   getStudentByEmail,
   getUserAdviserByEmail,
   getUserStatusByEmail,
   getUserTypeByEmail,
+  updateUserStatus,
+  getPendingStudents,
   updateAdviserByStudno,
-  updateUserStatus
-} from "./controllers/user-controller.js";
+  updateUserByEmail,
+  getApproverByName } from "./controllers/user-controller.js";
 
 const setUpRoutes = (app) => {
   app.get("/", (req, res) => { res.send("API Home") });
@@ -40,8 +42,9 @@ const setUpRoutes = (app) => {
   app.get("/get-usertype-by-email", getUserTypeByEmail);
   app.get("/get-user-adviser-by-email", getUserAdviserByEmail);
   app.get("/get-user-status-by-email", getUserStatusByEmail);
-  app.post("/add-student", addStudent);
-
+  app.post("/add-approver", addApprover);
+  app.post("/delete-user-by-email", deleteUserByEmail);
+  app.post("/update-user-status-by-email", updateUserStatus);
 
   // applications
   app.get("/get-applications", getAllApplications);
@@ -52,16 +55,13 @@ const setUpRoutes = (app) => {
   app.post("/update-app-status-by-email", updateAppStatusByEmail);
   app.post("/update-remarks-by-email", updateRemarksByEmail);
   app.post("/update-submission-link-by-email", updateSubmissionLinkByEmail);
-  app.post("/get-current-application-by-email", getCurrentApplicationByEmail);
-
-  //for approver
+  app.get("/get-current-application-by-email", getCurrentApplicationByEmail);
   app.get("/get-applications-by-status", getApplicationsByStatus);
-
-  //for admin
-  app.get("/get-pending-users", getPendingUsers);
-  app.post("/delete-user-by-email", deleteUserByEmail);
-  app.post("/update-user-status-by-email", updateUserStatus);
+  app.get("/get-pending-users", getPendingStudents);
   app.post("/update-adviser-by-studno",updateAdviserByStudno);
+  app.post("/update-user-by-email", updateUserByEmail);
+  app.get("/get-approver-by-name", getApproverByName);
+  app.post("/return-application-by-email", returnApplicationByEmail);
 }
 
 export default setUpRoutes;
