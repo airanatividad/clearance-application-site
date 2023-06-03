@@ -46,22 +46,27 @@ const updateUserStatus = async (req, res) => {
 };
 
 // Assign adviser to a student account
-// Input: { studno: String, adviser_id: String } adviser should be objectid of user
+// Input: { email: String, adviser_id: String } adviser should be objectid of user
 // Output: { "success": Boolean }
-const updateAdviserByStudno = async (req, res) => {
+const updateAdviserByEmail = async (req, res) => {
   try {
-    const user = await User.updateOne({ studno: req.body.studno },{$set:{adviser: User({ _id: req.body.adviser_id })}})
-    if (!user) {
-      return res.status(404).send({ error: 'User not found.' });
+    const { email, adviser_id } = req.body;
+    const student = await User.findOne({ email });
+
+    if (!student) {
+      return res.status(404).send({ error: 'Student not found.' });
     }
 
-    if (user.acknowledged) {
+    const result = await User.updateOne({ email }, { adviser: adviser_id });
+
+    if (result) {
       res.send({ success: true });
     } else {
       res.send({ success: false });
     }
   } catch (error) {
-    res.status(500).send({ error: 'Failed to retrieve applications.' });
+    console.log(error);
+    res.status(500).send({ error: 'Failed to update adviser.' });
   }
 };
 // Update usertype for accounts
@@ -285,18 +290,12 @@ const getUserStatusByEmail = async (req, res) => {
 }
 const getUserByEmail = async (req, res) => {
   try {
-    const { email } = req.query;
-    const student = await User.findOne({ email });
-
-    if (!student) {
-      return res.status(404).send({ error: 'Student not found.' });
-    }
-
-    res.send(student);
+    const user = await User.findOne({ email: req.query.email });
+    res.send(user);
   } catch (error) {
     res.status(500).send({ error: 'Failed to retrieve user.' });
   }
-}
+};
 
 export { 
   getUserByEmail,
@@ -310,7 +309,7 @@ export {
   deleteUserByEmail,
   updateUserStatus,
   getPendingStudents,
-  updateAdviserByStudno,
+  updateAdviserByEmail,
   updateUserByEmail,
   getApproverByName,
   getAdvisers,

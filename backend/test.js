@@ -218,8 +218,17 @@ import needle from 'needle';
 // })
 
 
-needle.get("http://localhost:3001/get-user-adviser-by-email?email=annatividad@up.edu.ph", (err,res) => {
-    if (!err) {
-        console.log(res.body);
-    }
-})
+// needle.get("http://localhost:3001/get-user-adviser-by-email?email=annatividad@up.edu.ph", (err,res) => {
+//     if (!err) {
+//         console.log(res.body);
+//     }
+// })
+
+// needle.post("http://localhost:3001/update-adviser-by-email", {
+//     email: "ok@ok.com", //student
+//     adviser: "647b9182cb12ea8d8822ec08",
+// }, (err,res) => {
+//     if (!err) {
+//         console.log(res.body);
+//     }
+// })

@@ -17,7 +17,7 @@ const signUp = async (req, res) => {
     status: req.body.status,
     usertype: req.body.usertype,
     applications: req.body.applications,
-    adviser: req.body.adviser,
+    adviser: null,
   });
 
   const result = await newuser.save();

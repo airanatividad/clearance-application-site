@@ -24,7 +24,7 @@ import {
   getUserTypeByEmail,
   updateUserStatus,
   getPendingStudents,
-  updateAdviserByStudno,
+  updateAdviserByEmail,
   updateUserByEmail,
   getApproverByName,
   getAdvisers,
@@ -66,7 +66,7 @@ const setUpRoutes = (app) => {
   app.get("/get-current-application-by-email", getCurrentApplicationByEmail);
   app.get("/get-applications-by-status", getApplicationsByStatus);
   app.get("/get-pending-users", getPendingStudents);
-  app.post("/update-adviser-by-studno",updateAdviserByStudno);
+  app.post("/update-adviser-by-email",updateAdviserByEmail);
   app.post("/update-user-by-email", updateUserByEmail);
   app.get("/get-approver-by-name", getApproverByName);
   app.post("/return-application-by-email", returnApplicationByEmail);

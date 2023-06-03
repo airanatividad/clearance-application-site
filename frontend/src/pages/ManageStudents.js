@@ -3,6 +3,7 @@ import StudentAccount from "../components/StudentAccount";
 
 export default function ManageStudents() {
     const [students, setStudents] = useState([])
+    const [advisers, setAdvisers] = useState([]);
 
     useEffect(() => {
         // fetch data from the API as the page loads
@@ -11,7 +12,13 @@ export default function ManageStudents() {
           .then(body => {
             setStudents(body)
           })
-      }, [])
+        // fetch all advisers
+        fetch("http://localhost:3001/get-advisers")
+        .then((response) => response.json())
+        .then((body) => {
+            setAdvisers(body);
+        });
+    }, []);
 
     function changeHandler(id) {
         setStudents(prevStudents => prevStudents.filter(student => student._id !== id));
@@ -27,7 +34,7 @@ export default function ManageStudents() {
                 <div class="flex flex-col items-center place-content-center">
                     {
                         students.map((student, i) => 
-                            <StudentAccount class="" student={student} onChange={changeHandler}/>
+                            <StudentAccount class="" student={student} advisers={advisers} onChange={changeHandler} />
                         )
                     }
                 </div>  
