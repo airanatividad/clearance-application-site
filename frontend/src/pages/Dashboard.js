@@ -12,7 +12,7 @@ export default function Dashboard() {
         .then(data => {
             setAdviser(data) //the output is put in query. access output using query 
         })
-    }, [])
+    }, [email])
 
     return (
         <>

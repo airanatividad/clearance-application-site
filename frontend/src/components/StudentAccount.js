@@ -38,25 +38,7 @@ export default function StudentAccount(props) {
                 }
             });
     }
-
-    // function rejectUser() {
-    //     fetch(`http://localhost:3001/delete-user`, {
-    //     method: "POST",
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify({ student: student })
-    //     })
-    //     .then(response => response.json())
-    //     .then(body => {
-    //         if (body.success) {
-    //         props.onChange(student._id);
-    //         } else {
-    //         alert("Student could not be rejected.");
-    //         }
-    //     });
-    // }
-  
+    
     return (
         <>
         <div class="container w-[68%] h-min bg-100-payne p-2 rounded-lg flex justify-center p-5 flex-col m-1">

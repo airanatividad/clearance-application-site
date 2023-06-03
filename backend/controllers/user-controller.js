@@ -64,6 +64,30 @@ const updateAdviserByStudno = async (req, res) => {
     res.status(500).send({ error: 'Failed to retrieve applications.' });
   }
 };
+// Update usertype for accounts
+// Input: { email: String, userType: String }
+// Output: { "success": Boolean }
+const updateUserType = async (req, res) => {
+  try {
+    const { email, usertype } = req.body;
+    const student = await User.findOne({ email });
+
+    if (!student) {
+      return res.status(404).send({ error: 'Student not found.' });
+    }
+
+    const result = await User.updateOne({ email: email }, { $set: { usertype } });
+
+    if (result) {
+      res.send({ success: true });
+    } else {
+      res.send({ success: false });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ error: 'Failed to change user status.' });
+  }
+};
 
 // Create accounts for approvers
 // Input: { fname: String, mname: String, lname: String, email: String, password: String, status: String, usertype: Number }
@@ -84,6 +108,32 @@ const addApprover = async (req, res) => {
     res.status(500).send({ error: 'Failed to add approver.' });
   }
 };
+
+const getAdvisers = async (req, res) => {
+  try {
+    const student = await User.find({usertype: 2});
+    if (!student) {
+      return res.status(404).send({ error: 'Approver not found.' });
+    }
+    // sends array of users
+    res.send(student);
+  } catch (error) {
+    res.status(500).send({ error: 'Failed to retrieve approvers.' });
+  }
+}
+
+const getCOs = async (req, res) => {
+  try {
+    const student = await User.find({usertype: 3});
+    if (!student) {
+      return res.status(404).send({ error: 'Approver not found.' });
+    }
+    // sends array of users
+    res.send(student);
+  } catch (error) {
+    res.status(500).send({ error: 'Failed to retrieve approvers.' });
+  }
+}
 
 // Edit account of users
 // Input: { fname: String, mname: String, lname: String, email: String, password: String, status: String, usertype: Number } does not need to input everything
@@ -233,8 +283,23 @@ const getUserStatusByEmail = async (req, res) => {
     res.status(500).send({ error: 'Failed to retrieve user status.' });
   }
 }
+const getUserByEmail = async (req, res) => {
+  try {
+    const { email } = req.query;
+    const student = await User.findOne({ email });
+
+    if (!student) {
+      return res.status(404).send({ error: 'Student not found.' });
+    }
+
+    res.send(student);
+  } catch (error) {
+    res.status(500).send({ error: 'Failed to retrieve user.' });
+  }
+}
 
 export { 
+  getUserByEmail,
   getAllUsers,
   getAllStudents,
   getStudentByEmail,
@@ -247,6 +312,9 @@ export {
   getPendingStudents,
   updateAdviserByStudno,
   updateUserByEmail,
-  getApproverByName };
+  getApproverByName,
+  getAdvisers,
+  getCOs,
+  updateUserType };
 
 

@@ -13,6 +13,7 @@ import {
 } from './controllers/apps-controller.js';
 import { checkIfLoggedIn, login, signUp } from "./controllers/auth-controller.js";
 import { 
+  getUserByEmail,
   addApprover,
   deleteUserByEmail,
   getAllStudents,
@@ -25,7 +26,10 @@ import {
   getPendingStudents,
   updateAdviserByStudno,
   updateUserByEmail,
-  getApproverByName } from "./controllers/user-controller.js";
+  getApproverByName,
+  getAdvisers,
+  getCOs,
+  updateUserType } from "./controllers/user-controller.js";
 
 const setUpRoutes = (app) => {
   app.get("/", (req, res) => { res.send("API Home") });
@@ -36,6 +40,7 @@ const setUpRoutes = (app) => {
   app.post("/checkifloggedin", checkIfLoggedIn);
 
     // user
+  app.get("/get-user-by-email", getUserByEmail);
   app.get("/get-users", getAllUsers);
   app.get("/get-students", getAllStudents);
   app.get("/get-student-by-email", getStudentByEmail);
@@ -43,8 +48,11 @@ const setUpRoutes = (app) => {
   app.get("/get-user-adviser-by-email", getUserAdviserByEmail);
   app.get("/get-user-status-by-email", getUserStatusByEmail);
   app.post("/add-approver", addApprover);
+  app.get("/get-advisers", getAdvisers); 
+  app.get("/get-cos", getCOs); 
   app.post("/delete-user-by-email", deleteUserByEmail);
   app.post("/update-user-status-by-email", updateUserStatus);
+  app.post("/update-user-type-by-email", updateUserType);
 
   // applications
   app.get("/get-applications", getAllApplications);

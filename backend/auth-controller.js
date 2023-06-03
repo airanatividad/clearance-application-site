@@ -1,5 +1,5 @@
-import jwt from 'jsonwebtoken';
 import mongoose from 'mongoose';
+import jwt from 'jsonwebtoken';
 
 // get user model registered in Mongoose
 const User = mongoose.model("User");
@@ -14,7 +14,6 @@ const signUp = async (req, res) => {
     email: req.body.email,
     password: req.body.password,
 
-    status: req.body.status,
     usertype: req.body.usertype,
     applications: req.body.applications,
     adviser: req.body.adviser,
@@ -56,7 +55,7 @@ const login = async (req, res) => {
     const token = jwt.sign(tokenPayload, "THIS_IS_A_SECRET_STRING");
 
     // return the token to the client
-    return res.send({ success: true, token, username: user.fname, email: email });
+    return res.send({ success: true, token, username: user.name });
 
 
   })
@@ -89,5 +88,4 @@ const checkIfLoggedIn = async (req, res) => {
   }
 }
 
-export { signUp, login, checkIfLoggedIn };
-
+export { signUp, login, checkIfLoggedIn }

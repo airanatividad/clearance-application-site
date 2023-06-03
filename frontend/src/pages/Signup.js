@@ -31,9 +31,10 @@ export default function Signup() {
         mname: mname,
         lname: lname,
         studno: studno,
-
+        usertype: 1,
         email: email,
         password: password,
+        status: "Pending",
       }),
     })
       .then((response) => response.json())
