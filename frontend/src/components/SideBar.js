@@ -18,6 +18,7 @@ export default function SideBar() {
       cookies.remove("authToken");
   
       localStorage.removeItem("username");
+      localStorage.removeItem("email");
   
       setIsLoggedIn(false)
     }

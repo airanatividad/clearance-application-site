@@ -19,7 +19,7 @@ import ManageAccounts from './pages/AdminPage';
 import ManageApps from './pages/AdviserPage';
 import Dashboard from './pages/Dashboard';
 
-import LogIn from './pages/Login';
+import LogIn from './pages/LogIn';
 import ManageStudents from './pages/ManageStudents';
 import Signup from './pages/Signup';
 

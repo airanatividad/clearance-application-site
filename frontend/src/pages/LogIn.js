@@ -54,6 +54,7 @@ export default function LogIn() {
             });
 
           localStorage.setItem("username", body.username);
+          localStorage.setItem("email", body.email);
         }
         else { alert("Log in failed")}
       })

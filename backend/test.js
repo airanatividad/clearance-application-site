@@ -216,3 +216,10 @@ import needle from 'needle';
 //         console.log(res.body);
 //     }
 // })
+
+
+needle.get("http://localhost:3001/get-user-adviser-by-email?email=annatividad@up.edu.ph", (err,res) => {
+    if (!err) {
+        console.log(res.body);
+    }
+})
