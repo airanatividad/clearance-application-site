@@ -10,6 +10,15 @@ export default function SideBar() {
   useEffect(() => {
     if (!isLoggedIn) {
       navigate(`/login`);
+    } else {
+      fetch(`http://localhost:3001/get-user-by-email?email=${email}`)
+      .then(response => response.json())
+      .then(data => {
+        setUser(data);
+      })
+      .catch(error => {
+        console.error("Failed to fetch user details:", error);
+      });
     }
   }, [isLoggedIn, navigate]);
 
@@ -26,17 +35,10 @@ export default function SideBar() {
   const email = localStorage.getItem("email");
   const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    // fetch user data
-    fetch(`http://localhost:3001/get-user-by-email?email=${email}`)
-      .then(response => response.json())
-      .then(data => {
-        setUser(data);
-      })
-      .catch(error => {
-        console.error("Failed to fetch user details:", error);
-      });
-  }, [email]);
+  // useEffect(() => {
+  //   // fetch user data
+   
+  // }, [email]);
 
   return (
     <>
