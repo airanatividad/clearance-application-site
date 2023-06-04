@@ -4,10 +4,10 @@ export default function ApplicationList(props) {
     const { email } = props
     const [application, setApplication] = useState()
     const [appNumber, setAppNumber] = useState(0)
-    const [adviserRemark, setAdviserRemark] = useState("None")
-    const [coRemark, setCORemark] = useState("None")
-    const [adviserStatus, setAdviserStatus] = useState("None")
-    const [coStatus, setCOStatus] = useState("None")
+    const [adviserRemark, setAdviserRemark] = useState("N/A")
+    const [coRemark, setCORemark] = useState("N/A")
+    const [adviserStatus, setAdviserStatus] = useState("N/A")
+    const [coStatus, setCOStatus] = useState("N/A")
     const [showButton, setShowButton] = useState(true)
 
     useEffect(() => {
@@ -16,34 +16,40 @@ export default function ApplicationList(props) {
         .then(data => {
             setAppNumber(data)
         })
-
-        fetch(`http://localhost:3001/get-current-application-by-email?email=${email}`)
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                setApplication(data.app)
-                setAdviserStatus(data.app.adviserStatus)
-                setCOStatus(data.app.coStatus)
-            } else {
-                setApplication({})
-                setAdviserStatus("None")
-                setCOStatus("None")
-            }
-        })
-
-        fetch(`http://localhost:3001/get-remark-of-adviser?email=${email}`)
-        .then(response => response.text())
-        .then(data => {
-            setAdviserRemark(data)
-        })
-
-        fetch(`http://localhost:3001/get-remark-of-co?email=${email}`)
-        .then(response => response.text())
-        .then(data => {
-            setCORemark(data)
-        })
-
     }, [])
+
+    useEffect(() => {
+        if (appNumber != 0) {
+            fetch(`http://localhost:3001/get-current-application-by-email?email=${email}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    setApplication(data.app)
+                    setAdviserStatus(data.app.adviserStatus)
+                    setCOStatus(data.app.coStatus)
+                } else {
+                    setApplication({})
+                    setAdviserStatus("None")
+                    setCOStatus("None")
+                }
+            })
+
+            fetch(`http://localhost:3001/get-remark-of-adviser?email=${email}`)
+            .then(response => response.text())
+            .then(data => {
+                setAdviserRemark(data)
+            })
+
+            fetch(`http://localhost:3001/get-remark-of-co?email=${email}`)
+            .then(response => response.text())
+            .then(data => {
+                setCORemark(data)
+            }) 
+            setShowButton(true)
+        } else {
+            setShowButton(false)
+        }
+    }, [appNumber])
 
     function handleDelete() {
         if (adviserStatus != 'Closed' && coStatus != 'Closed') {
@@ -58,6 +64,7 @@ export default function ApplicationList(props) {
             .then(body => {
                 if (body.success) {
                     alert("Application was successfully cancelled")
+                    window.location.reload();
                 } else {
                     alert("Failed to cancel application")
                 }
@@ -68,7 +75,7 @@ export default function ApplicationList(props) {
     }   
 
     return (
-        <>
+        <>{showButton &&
         <div class="container w-[68%] h-min bg-100-payne p-2 rounded-lg flex justify-center p-5 flex-col">
             <div class="flex flex-row text-white content-center justify-start">
                 <div class="flex flex-col w-64 p-2 border-black-200">
@@ -109,6 +116,7 @@ export default function ApplicationList(props) {
                     Cancel Application
             </button>
         </div>
+        }
         </>
     );
 }

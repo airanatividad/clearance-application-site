@@ -12,8 +12,8 @@ export default function Dashboard() {
         .then(data => {
             setAdviser(data)
         })
-    }, [email])
-
+    }, [])
+    
     return (
         <>
             <div class="w-[100%] flex flex-col">
@@ -23,7 +23,7 @@ export default function Dashboard() {
                     </h1>
                 </div>
                 <div class="flex flex-col items-center p-5 place-content-center">
-                    <ClearanceForm class="" adviser={adviser} email={email} />
+                    <ClearanceForm class="" adviser={adviser} email={email}/>
                 </div>  
                 <div class="flex flex-col items-center place-content-center">
                     <ApplicationList class="" email={email}/>

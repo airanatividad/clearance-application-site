@@ -22,6 +22,7 @@ export default function ClearanceForm(props) {
                     alert("Subject was successfully saved")
                     setLink('')
                     setRemark('')
+                    window.location.reload(); //reload to load new application
                 } else {
                     alert("Failure to save subject")
                     setLink('')
