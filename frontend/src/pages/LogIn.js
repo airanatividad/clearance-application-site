@@ -64,7 +64,6 @@ export default function LogIn() {
   return (
     <>
     <NavBar/>
-
     <div class="top-10 flex h-screen items-center self-center justify-center bg-100-payne flex-col">
     {/* <div className="h-15 relative flex w-28 flex-col self-center rounded-full"> */}
         <img

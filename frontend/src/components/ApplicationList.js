@@ -1,4 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { Outlet, useLoaderData, useNavigate } from 'react-router-dom';
+import jsPDF from "jspdf";
+import html2canvas from 'html2pdf.js'
+
+
 
 export default function ApplicationList(props) {
     const { email } = props
@@ -9,6 +14,40 @@ export default function ApplicationList(props) {
     const [adviserStatus, setAdviserStatus] = useState("N/A")
     const [coStatus, setCOStatus] = useState("N/A")
     const [showButton, setShowButton] = useState(true)
+    const [isLoggedIn, setIsLoggedIn] = useState(useLoaderData());
+    const navigate = useNavigate();
+    const [adviser, setAdviser] = useState("")
+    const [clearoff, setClearOff] = useState("")
+
+    useEffect(() => {
+        fetch(`http://localhost:3001/get-user-adviser-by-email?email=${email}`)
+        .then(response => response.json())
+        .then(data => {
+            setAdviser(data)
+        })
+    }, [])
+
+    useEffect(() => {
+        fetch(`http://localhost:3001/get-user-co-by-email?email=${email}`)
+        .then(response => response.json())
+        .then(data => {
+            setClearOff(data)
+        })
+    }, [])
+
+    useEffect(() => {
+        fetch(`http://localhost:3001/get-user-by-email?email=${email}`)
+        .then(response => response.json())
+        .then(data => {
+          setUser(data);
+        })
+        .catch(error => {
+          console.error("Failed to fetch user details:", error);
+        });
+    }, [isLoggedIn, navigate]);
+  
+    const id = localStorage.getItem("id");
+    const [user, setUser] = useState(null);
 
     useEffect(() => {
         fetch(`http://localhost:3001/get-number-of-applications?email=${email}`)
@@ -74,6 +113,15 @@ export default function ApplicationList(props) {
         }
     }   
 
+    function printComponent() {
+        const component = document.getElementById('#pdf');
+        html2canvas(component).then(canvas => {
+        const doc = new jsPDF();
+        doc.save('Clearance.pdf');
+        });
+    }
+
+
     return (
         <>{showButton &&
         <div class="container w-[68%] h-min bg-100-payne p-2 rounded-lg flex justify-center p-5 flex-col">
@@ -109,12 +157,76 @@ export default function ApplicationList(props) {
                     </h1>
                 </div>
             </div>
-            <button
-                    className=" mt-3 rounded bg-100-charcoal px-4 py-2 text-white hover:bg-black"
-                    onClick={handleDelete}
-                >
-                    Cancel Application
-            </button>
+
+            {!!(application?.adviser == "Pending" | application?.coStatus == "Pending") && (
+                <>
+                    <button
+                        className=" mt-3 rounded bg-100-charcoal px-4 py-2 text-white hover:bg-black"
+                        onClick={handleDelete}
+                    >
+                        Cancel Application
+                    </button>            
+       
+                </>
+            )}
+            {!!(application?.adviser == "Closed" | application?.coStatus == "Closed") && (
+                <h1 class=" flex justify-end text-xs text-white"><br/><br/>
+                    If status is Closed, kindly settle your deficiency and resubmit another application.
+                </h1>
+            )
+
+            }
+            
+
+            {application?.adviserStatus == "Cleared" && application?.coStatus == "Cleared" && (
+                <>
+                    <button class=" mt-3 rounded bg-100-charcoal px-4 py-2 text-white hover:bg-black" onClick={printComponent}>
+                        Generate PDF
+                    </button>       
+                    {/* pdf content */}
+                    <div class="hidden">
+                        <div id="#pdf" class="flex flex-col mx-10">
+                            {/* header */}
+                            <div>
+                                <h1 class="flex justify-center item-center self-center align-center text-lg font-bold mt-10">
+                                    University of the Philippines Los Banos
+                                </h1> 
+                                <div class="flex flex-col ">
+                                    <h2 class="justify-center item-center self-center align-center">
+                                        Pedro R. Sandoval Ave., Los Banos, Laguna 4031
+                                    </h2>      
+                                    <h2 class="justify-center item-center self-center align-center">
+                                        College of Arts and Sciences
+                                    </h2> 
+                                    <h2 class="justify-center item-center self-center align-center">                                
+                                        Institute of Computer Science                           
+                                    </h2>                                     
+                                </div>
+                            </div>
+                            <br/><br/>
+                            <p class="text-justify">
+                            This document provides information about student's clearance status.
+                            </p>
+                            <br/>
+                            <h1 class="">
+                                Name: <b>{user?.fname} {user?.mname} {user?.lname}</b><br/>
+                                Student Number: {user?.studno}<br/>
+                                Adviser: {adviser?.fname} {adviser?.mname} {adviser?.lname} <br/>
+                                Status: <b>{adviserStatus}</b>  <br/>
+                                Remark: {adviserRemark} <br/>
+                                Clearance Officer: {clearoff?.fname} {clearoff?.mname} {clearoff?.lname} <br/>
+                                Status: <b>{coStatus}</b> <br/>
+                                Remark: {coRemark} <br/>
+                            </h1>     
+                            <br/>                       
+                            <h1 class="text-white">
+                                ----------------------
+                            </h1>
+                        </div>                          
+                    </div>
+                </>
+            )
+            }
         </div>
         }
         </>
