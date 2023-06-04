@@ -12,8 +12,8 @@ const addApplication = async (req, res) => {
   try {
     //save clearance application with remarks and submission
     const newApp = new Application({
-      adviserStatus: 'Open',
-      coStatus: 'Open',
+      adviserStatus: 'Pending',
+      coStatus: 'Pending',
       step: 1,
       remarks: [{
         remark: req.body.remark,

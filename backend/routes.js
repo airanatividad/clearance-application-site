@@ -32,7 +32,8 @@ import {
   getApproverByName,
   getAdvisers,
   getCOs,
-  updateUserType } from "./controllers/user-controller.js";
+  updateUserType,
+  getStudentByAdviserEmail } from "./controllers/user-controller.js";
 
 const setUpRoutes = (app) => {
   app.get("/", (req, res) => { res.send("API Home") });
@@ -56,6 +57,7 @@ const setUpRoutes = (app) => {
   app.post("/delete-user-by-email", deleteUserByEmail);
   app.post("/update-user-status-by-email", updateUserStatus);
   app.post("/update-user-type-by-email", updateUserType);
+  app.get("/get-student-by-adviser-email", getStudentByAdviserEmail);
 
   // applications
   app.get("/get-applications", getAllApplications);

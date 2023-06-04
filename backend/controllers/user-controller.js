@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 
 const User = mongoose.model("User");
+const Application = mongoose.model("Application");
 
 // ADMIN
 
@@ -297,6 +298,34 @@ const getUserByEmail = async (req, res) => {
   }
 };
 
+const getStudentByAdviserEmail = async (req, res) => {
+  try {
+    const user = await User.find({});
+    const adviser = await User.findOne({ email: req.query.email });
+    const arr = [];
+
+    for (let i=0; i<user.length; i++) {
+      if (adviser._id.equals(user[i].adviser)) {
+        // if adviser is not empty or closed
+        const latestApp = user[i].applications.slice(-1);
+        const application = await Application.findOne({ _id: latestApp})
+
+        if (user[i].applications.length != 0) {
+          if (application.adviserStatus !== 'Closed' && application.coStatus !== 'Closed') {
+            if (application.adviserStatus !== 'Cleared') {
+              arr.push(user[i]);
+            }
+          }
+        }
+      }
+    }
+
+    res.send(arr);
+  } catch (error) {
+    res.status(500).send({ error: 'Failed to retrieve user.' });
+  }
+};
+
 export { 
   getUserByEmail,
   getAllUsers,
@@ -314,6 +343,7 @@ export {
   getApproverByName,
   getAdvisers,
   getCOs,
-  updateUserType };
+  updateUserType,
+  getStudentByAdviserEmail };
 
 

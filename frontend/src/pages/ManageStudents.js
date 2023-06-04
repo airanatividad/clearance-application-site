@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import StudentAccount from "../components/StudentAccount";
 
 export default function ManageStudents() {
-    const [students, setStudents] = useState([])
+    const [students, setStudents] = useState([]);
     const [advisers, setAdvisers] = useState([]);
 
     useEffect(() => {

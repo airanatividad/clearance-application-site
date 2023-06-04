@@ -43,9 +43,6 @@ export default function ApplicationList(props) {
             setCORemark(data)
         })
 
-        if (adviserStatus != 'Closed' && coStatus != 'Closed') {
-            setShowButton(true)
-        }
     }, [])
 
     function handleDelete() {
@@ -61,7 +58,6 @@ export default function ApplicationList(props) {
             .then(body => {
                 if (body.success) {
                     alert("Application was successfully cancelled")
-                    setShowButton(false);
                 } else {
                     alert("Failed to cancel application")
                 }
@@ -73,7 +69,6 @@ export default function ApplicationList(props) {
 
     return (
         <>
-        {showButton &&
         <div class="container w-[68%] h-min bg-100-payne p-2 rounded-lg flex justify-center p-5 flex-col">
             <div class="flex flex-row text-white content-center justify-start">
                 <div class="flex flex-col w-64 p-2 border-black-200">
@@ -114,7 +109,6 @@ export default function ApplicationList(props) {
                     Cancel Application
             </button>
         </div>
-        }
         </>
     );
 }

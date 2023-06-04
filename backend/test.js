@@ -19,17 +19,17 @@ import needle from 'needle';
 // );
 
 
-needle.post("http://localhost:3001/add-application",
-    {   
-        email: "annatividad@up.edu.ph",
-        remark: "accept me ma'am",
-        commenter: "annatividad@up.edu.ph", 
-        link: "https://github.com/CMSC100/exercise-3-import-export-npm-usage-airanatividad/blob/main/functions.js",
-    },
-    (err, res) => {
-        console.log(res.body);
-    }
-);
+// needle.post("http://localhost:3001/add-application",
+//     {   
+//         email: "annatividad@up.edu.ph",
+//         remark: "accept me ma'am",
+//         commenter: "annatividad@up.edu.ph", 
+//         link: "https://github.com/CMSC100/exercise-3-import-export-npm-usage-airanatividad/blob/main/functions.js",
+//     },
+//     (err, res) => {
+//         console.log(res.body);
+//     }
+// );
 
 
 // needle.get("http://localhost:3001/get-applications-by-email?email=nicole@gmail.com", (err,res) => {
@@ -260,5 +260,17 @@ needle.post("http://localhost:3001/add-application",
 // needle.post("http://localhost:3001/delete-application?email=annatividad@up.edu.ph", (err,res) => {
 //     if (!err) {
 //         console.log(res.body);
+//     }
+// })
+
+// needle.get("http://localhost:3001/get-student-by-adviser-email?email=mccunanan1@up.edu.ph", (err,res) => {
+//     if (!err) {
+//        console.log(res.body)
+//     }
+// })
+
+// needle.get("http://localhost:3001/get-advisers", (err,res) => {
+//     if (!err) {
+//        console.log(res.body)
 //     }
 // })
