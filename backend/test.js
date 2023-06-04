@@ -19,17 +19,17 @@ import needle from 'needle';
 // );
 
 
-// needle.post("http://localhost:3001/add-application",
-//     {   
-//         email: "nicole@gmail.com",
-//         remark: "accept me ma'am",
-//         commenter: "paula@gmail.com", 
-//         link: "https://github.com/CMSC100/exercise-3-import-export-npm-usage-airanatividad/blob/main/functions.js",
-//     },
-//     (err, res) => {
-//         console.log(res.body);
-//     }
-// );
+needle.post("http://localhost:3001/add-application",
+    {   
+        email: "annatividad@up.edu.ph",
+        remark: "accept me ma'am",
+        commenter: "annatividad@up.edu.ph", 
+        link: "https://github.com/CMSC100/exercise-3-import-export-npm-usage-airanatividad/blob/main/functions.js",
+    },
+    (err, res) => {
+        console.log(res.body);
+    }
+);
 
 
 // needle.get("http://localhost:3001/get-applications-by-email?email=nicole@gmail.com", (err,res) => {
@@ -228,6 +228,36 @@ import needle from 'needle';
 //     email: "ok@ok.com", //student
 //     adviser: "647b9182cb12ea8d8822ec08",
 // }, (err,res) => {
+//     if (!err) {
+//         console.log(res.body);
+//     }
+// })
+
+// needle.get("http://localhost:3001/get-remark-of-adviser?email=annatividad@up.edu.ph", (err,res) => {
+//     if (!err) {
+//         console.log(res.body);
+//     }
+// })
+
+// needle.get("http://localhost:3001/get-remark-of-co?email=annatividad@up.edu.ph", (err,res) => {
+//     if (!err) {
+//         console.log(res.body);
+//     }
+// })
+
+// needle.get("http://localhost:3001/get-app-status-by-email?email=annatividad@up.edu.ph", (err,res) => {
+//     if (!err) {
+//         console.log(res.body);
+//     }
+// })
+
+// needle.get("http://localhost:3001/get-current-application-by-email?email=annatividad@up.edu.ph", (err,res) => {
+//     if (!err) {
+//         console.log(res.body);
+//     }
+// })
+
+// needle.post("http://localhost:3001/delete-application?email=annatividad@up.edu.ph", (err,res) => {
 //     if (!err) {
 //         console.log(res.body);
 //     }

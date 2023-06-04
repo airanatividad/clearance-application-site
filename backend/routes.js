@@ -9,7 +9,10 @@ import {
   updateAppStatusByEmail,
   updateRemarksByEmail,
   updateSubmissionLinkByEmail,
-  returnApplicationByEmail
+  returnApplicationByEmail,
+  getNumberOfApplications,
+  getLatestRemarkOfAdviser,
+  getLatestRemarkOfCO
 } from './controllers/apps-controller.js';
 import { checkIfLoggedIn, login, signUp } from "./controllers/auth-controller.js";
 import { 
@@ -70,6 +73,9 @@ const setUpRoutes = (app) => {
   app.post("/update-user-by-email", updateUserByEmail);
   app.get("/get-approver-by-name", getApproverByName);
   app.post("/return-application-by-email", returnApplicationByEmail);
+  app.get("/get-number-of-applications", getNumberOfApplications);
+  app.get("/get-remark-of-adviser", getLatestRemarkOfAdviser);
+  app.get("/get-remark-of-co", getLatestRemarkOfCO);
 }
 
 export default setUpRoutes;

@@ -12,7 +12,8 @@ const addApplication = async (req, res) => {
   try {
     //save clearance application with remarks and submission
     const newApp = new Application({
-      status: 'Open',
+      adviserStatus: 'Open',
+      coStatus: 'Open',
       step: 1,
       remarks: [{
         remark: req.body.remark,
@@ -46,7 +47,7 @@ const addApplication = async (req, res) => {
 
 // Update/Close a clearance application
 // Approve application at current step (Cleared)
-// Input: { email: String, status: String (Open/Pending/Closed/Cleared) }
+// Input: { email: String, adviserStatus: String (Open/Pending/Closed/Cleared), coStatus: String }
 // Output: { success: Boolean }
 const updateAppStatusByEmail = async (req, res) => {
   try {
@@ -62,7 +63,7 @@ const updateAppStatusByEmail = async (req, res) => {
     }
 
     //using the application id, update status
-    const application = await Application.updateOne({_id: latestApp},{$set:{status: req.body.status}})
+    const application = await Application.updateOne({_id: latestApp},{$set:{adviserStatus: req.body.adviserStatus, coStatus: req.body.coStatus}})
     if (application.acknowledged) {
       res.send({ success: true });
     } else {
@@ -92,7 +93,7 @@ const getApplicationStatusByEmail = async (req, res) => {
     const application = await Application.findOne({ _id: latestApp });
 
     //using the application id, get status
-    res.send(application.status);
+    res.send(application.adviserStatus);
   } catch (error) {
     res.status(500).send({ error: 'Failed to retrieve applications.' });
   }
@@ -167,7 +168,7 @@ const updateSubmissionLinkByEmail = async (req, res) => {
 // Output: { success: Boolean }
 const getApplicationsByStatus = async (req, res) => {
   try {
-    const application = await Application.find({status: req.query.status});
+    const application = await Application.find({adviserStatus: req.query.status}); //or coStatus too ?
     if (!application) {
       return res.status(404).send({ error: 'Application not found.' });
     }
@@ -237,25 +238,24 @@ const returnApplicationByEmail = async (req, res) => {
 
 
 // Delete application
-// Input: { ? }
+// Input: { email: String }
 // Output: { success: Boolean }
 const deleteApplication = async (req, res) => {
   try {
-    const { applicationId, userId } = req.query;
-
-    const application = await Application.findOne({
-      _id: applicationId,
-      user: userId
-    });
-
-    if (!application) {
-      return res.status(404).send({ error: 'Application not found.' });
+    const user = await User.findOne({ email: req.body.email });
+    if (!user) {
+      return res.status(404).send({ error: 'User not found.' });
     }
 
-    // Delete the application
-    const result = await Application.deleteOne({ _id: applicationId });
+    const latestApp = user.applications.slice(-1);
+    if (user.applications.length == 0) {
+      res.send({ error: 'No application found.' });
+    }
 
-    if (result.deletedCount === 1) {
+    // const deleteApp = await User.updateOne({ _id: user._id }, {$pull: { applications: latestApp[0] }})
+    // const result = await Application.deleteOne({ _id: latestApp });
+    const result = await Application.updateOne({ _id: latestApp }, {$set: {adviserStatus: 'Closed', coStatus: 'Closed'}});
+    if (result.acknowledged) {
       res.send({ success: true });
     } else {
       res.send({ success: false });
@@ -287,23 +287,98 @@ const getApplicationsByEmail = async (req, res) => {
 // Output: Application object
 const getCurrentApplicationByEmail = async (req, res) => {
   try {
-    const { email } = req.query;
-    // find user
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email: req.query.email });
     if (!user) {
       return res.status(404).send({ error: 'User not found.' });
     }
 
-    // last pushed application in the array
-    const latestApp = user.applications.slice(-1);
-    if (user.applications.length == 0) {
-      res.send({ error: 'No application found.' });
+    //last pushed application in the array
+    if ((user.applications).length == 0) {
+      res.send({ success: false});
+    }
+    const latestApp = user.applications.slice(-1);    
+    const application = await Application.findOne({ _id: latestApp });
+
+    res.send({ success: true, app: application});
+  } catch (error) {
+    res.send({ success: false});
+  }
+};
+
+const getNumberOfApplications = async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.query.email });
+    if (!user) {
+      return res.status(404).send({ error: 'User not found.' });
     }
 
-    const application = await Application.findOne({ _id: latestApp });
-    res.send(application);
+    res.json(user.applications.length);
   } catch (error) {
     res.status(500).send({ error: 'Failed to retrieve the latest application.' });
+  }
+};
+
+// Input: { email: String }
+// Output: String
+const getLatestRemarkOfAdviser = async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.query.email });
+    if (!user) {
+      return res.status(404).send({ error: 'User not found.' });
+    }
+
+    const adviser = await User.findOne({ _id: user.adviser });
+
+    //find the latest application id of user
+    const latestApp = user.applications.slice(-1);
+    if (user.applications.length == 0) {
+      res.send('None');
+    }
+
+    //using the application id, update remarks
+    const application = await Application.findOne({ _id: latestApp })
+    let arr = application.remarks
+
+    let obj = arr.find(o => o.commenter === adviser.email);
+    if (obj) {
+      res.send(obj.remark)
+    } else {
+      res.send('None')
+    }
+  } catch (error) {
+    res.send('None');
+  }
+};
+
+// Input: { email: String }
+// Output: String
+const getLatestRemarkOfCO = async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.query.email });
+    if (!user) {
+      return res.status(404).send({ error: 'User not found.' });
+    }
+
+    const adviser = await User.findOne({ _id: user.adviser });
+
+    //find the latest application id of user
+    if ((user.applications.length) == 0) {
+      res.send('None');
+    }
+    const latestApp = user.applications.slice(-1);
+    
+    // //using the application id, update remarks
+    const application = await Application.findOne({ _id: latestApp })
+    let arr = application.remarks
+
+    let obj = arr.find(o => o.commenter === 'clearanceofficer@up.edu.ph');
+    if (obj) {
+      res.send(obj.remark)
+    } else {
+      res.send('None')
+    }
+  } catch (error) {
+    res.send('None')
   }
 };
 
@@ -318,6 +393,9 @@ export {
   updateSubmissionLinkByEmail,
   getApplicationsByStatus,
   deleteApplication,
-  returnApplicationByEmail
+  returnApplicationByEmail,
+  getNumberOfApplications,
+  getLatestRemarkOfAdviser,
+  getLatestRemarkOfCO
 };
 

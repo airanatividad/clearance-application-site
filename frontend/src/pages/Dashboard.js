@@ -10,7 +10,7 @@ export default function Dashboard() {
         fetch(`http://localhost:3001/get-user-adviser-by-email?email=${email}`)
         .then(response => response.json())
         .then(data => {
-            setAdviser(data) //the output is put in query. access output using query 
+            setAdviser(data)
         })
     }, [email])
 
@@ -26,7 +26,7 @@ export default function Dashboard() {
                     <ClearanceForm class="" adviser={adviser} email={email} />
                 </div>  
                 <div class="flex flex-col items-center place-content-center">
-                    <ApplicationList class="" />
+                    <ApplicationList class="" email={email}/>
                 </div>  
             </div>                    
         </>

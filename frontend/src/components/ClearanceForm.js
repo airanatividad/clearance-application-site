@@ -28,7 +28,7 @@ export default function ClearanceForm(props) {
                     setRemark('')
                 }//if successful or not
             })
-
+            window.location.reload(); //reload to show the latest clearance application
         } else {
             alert("Please input your Github link")
         }

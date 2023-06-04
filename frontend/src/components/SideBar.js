@@ -50,7 +50,7 @@ export default function SideBar() {
                   {/* <img className="rounded-full w-20 h-20" src="userimage.jpg" alt="image description" /> */}
                 </div>
                 <h1 className="font-extrabold self-center text-lg text-white">
-                  {user.fname} {user.mname} {user.sname}
+                  {user.fname} {(user.mname).charAt(0)}. {user.lname}
                 </h1>
                 <p className="pb-3">{user.email}</p>
               </>
