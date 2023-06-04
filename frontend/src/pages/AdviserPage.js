@@ -4,14 +4,27 @@ import AppAdviser from "../components/AdviserView";
 export default function ManageApps() {
     const adviserEmail = localStorage.getItem("email")
     const [students, setStudents] = useState([])
+    const [usertype, setUserType] = useState(0)
 
-    //get students with adviser (only students with open application)
     useEffect(() => {
-        fetch(`http://localhost:3001/get-student-by-adviser-email?email=${adviserEmail}`)
-            .then((response) => response.json())
-            .then((body) => {
-                setStudents(body);
-            });
+        fetch(`http://localhost:3001/get-usertype-by-email?email=${adviserEmail}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.usertype == 2) {
+                fetch(`http://localhost:3001/get-student-by-adviser-email?email=${adviserEmail}`)
+                .then((response) => response.json())
+                .then((body) => {
+                    setStudents(body);
+                });
+            } else if (data.usertype == 3) {
+                fetch(`http://localhost:3001/get-students-if-co`)
+                .then((response) => response.json())
+                .then((body) => {
+                    setStudents(body);
+                });
+            }
+            setUserType(data.usertype)
+        })
     }, []);
 
     function changeHandler(id) {
@@ -29,7 +42,7 @@ export default function ManageApps() {
                 <div class="flex flex-wrap flex-row items-center p-5 place-content-center">
                     {
                         students.map((student, i) => 
-                            <AppAdviser class="" adviserEmail={adviserEmail} student={student}  onChange={changeHandler}/>
+                            <AppAdviser class="" adviserEmail={adviserEmail} student={student} usertype={usertype} onChange={changeHandler}/>
                         )
                     }
                 </div>           

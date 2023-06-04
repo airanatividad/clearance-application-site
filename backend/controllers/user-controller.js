@@ -310,11 +310,36 @@ const getStudentByAdviserEmail = async (req, res) => {
         const latestApp = user[i].applications.slice(-1);
         const application = await Application.findOne({ _id: latestApp})
 
-        if (user[i].applications.length != 0) {
+        if (user[i].applications.length != 0 && user[i].usertype == 1) {
           if (application.adviserStatus !== 'Closed' && application.coStatus !== 'Closed') {
             if (application.adviserStatus !== 'Cleared') {
               arr.push(user[i]);
             }
+          }
+        }
+      }
+    }
+
+    res.send(arr);
+  } catch (error) {
+    res.status(500).send({ error: 'Failed to retrieve user.' });
+  }
+};
+
+const getStudentIfClearanceOfficer = async (req, res) => {
+  try {
+    const user = await User.find({});
+    const arr = [];
+
+    for (let i=0; i<user.length; i++) {
+      // get latest application
+      const latestApp = user[i].applications.slice(-1);
+      const application = await Application.findOne({ _id: latestApp})
+
+      if (user[i].applications.length != 0 && user[i].usertype == 1) {
+        if (application.adviserStatus !== 'Closed' && application.coStatus !== 'Closed') {
+          if (application.adviserStatus === 'Cleared' && application.coStatus !== 'Cleared') {
+            arr.push(user[i]);
           }
         }
       }
@@ -344,6 +369,7 @@ export {
   getAdvisers,
   getCOs,
   updateUserType,
-  getStudentByAdviserEmail };
+  getStudentByAdviserEmail,
+  getStudentIfClearanceOfficer };
 
 

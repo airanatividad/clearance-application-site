@@ -12,7 +12,8 @@ import {
   returnApplicationByEmail,
   getNumberOfApplications,
   getLatestRemarkOfAdviser,
-  getLatestRemarkOfCO
+  getLatestRemarkOfCO,
+  getLatestRemarkOfStudent
 } from './controllers/apps-controller.js';
 import { checkIfLoggedIn, login, signUp } from "./controllers/auth-controller.js";
 import { 
@@ -33,7 +34,8 @@ import {
   getAdvisers,
   getCOs,
   updateUserType,
-  getStudentByAdviserEmail } from "./controllers/user-controller.js";
+  getStudentByAdviserEmail,
+  getStudentIfClearanceOfficer } from "./controllers/user-controller.js";
 
 const setUpRoutes = (app) => {
   app.get("/", (req, res) => { res.send("API Home") });
@@ -58,6 +60,7 @@ const setUpRoutes = (app) => {
   app.post("/update-user-status-by-email", updateUserStatus);
   app.post("/update-user-type-by-email", updateUserType);
   app.get("/get-student-by-adviser-email", getStudentByAdviserEmail);
+  app.get("/get-students-if-co", getStudentIfClearanceOfficer);
 
   // applications
   app.get("/get-applications", getAllApplications);
@@ -78,6 +81,7 @@ const setUpRoutes = (app) => {
   app.get("/get-number-of-applications", getNumberOfApplications);
   app.get("/get-remark-of-adviser", getLatestRemarkOfAdviser);
   app.get("/get-remark-of-co", getLatestRemarkOfCO);
+  app.get("/get-latest-remark-of-student", getLatestRemarkOfStudent);
 }
 
 export default setUpRoutes;

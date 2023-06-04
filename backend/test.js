@@ -218,7 +218,7 @@ import needle from 'needle';
 // })
 
 
-// needle.get("http://localhost:3001/get-user-adviser-by-email?email=annatividad@up.edu.ph", (err,res) => {
+// needle.get("http://localhost:3001/get-user-adviser-by-email?email=maxine@gmail.com", (err,res) => {
 //     if (!err) {
 //         console.log(res.body);
 //     }
@@ -233,7 +233,7 @@ import needle from 'needle';
 //     }
 // })
 
-// needle.get("http://localhost:3001/get-remark-of-adviser?email=annatividad@up.edu.ph", (err,res) => {
+// needle.get("http://localhost:3001/get-remark-of-adviser?email=maxine@gmail.com", (err,res) => {
 //     if (!err) {
 //         console.log(res.body);
 //     }
@@ -274,3 +274,21 @@ import needle from 'needle';
 //        console.log(res.body)
 //     }
 // })
+
+// needle.get("http://localhost:3001/get-usertype-by-email?email=rcculaway@up.edu.ph", (err,res) => {
+//     if (!err) {
+//        console.log(res.body.usertype)
+//     }
+// })
+
+// needle.get("http://localhost:3001/get-students-if-co", (err,res) => {
+//     if (!err) {
+//        console.log(res.body)
+//     }
+// })
+
+needle.get("http://localhost:3001/get-latest-remark-of-student?email=maxine@gmail.com", (err,res) => {
+    if (!err) {
+        console.log(res.body);
+    }
+})

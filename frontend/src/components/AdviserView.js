@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 export default function AppAdviser(props) {
-    const { adviserEmail, student } = props
+    const { adviserEmail, student, usertype } = props
     const { fname, mname, lname, studno, email } = student
     const [userAdviser, setUserAdviser] = useState({})
     const [application, setApplication] = useState()
@@ -10,11 +10,21 @@ export default function AppAdviser(props) {
 
     useEffect(() => {
         // get name of adviser
-        fetch(`http://localhost:3001/get-user-by-email?email=${adviserEmail}`)
-        .then(response => response.json())
-        .then(data => {
-            setUserAdviser(data)
-        })
+        if (usertype == 2) {
+            // get adviser by adivser email
+            fetch(`http://localhost:3001/get-user-by-email?email=${adviserEmail}`)
+            .then(response => response.json())
+            .then(data => {
+                setUserAdviser(data)
+            })
+        } else if (usertype == 3) {
+            // get adviser by student email
+            fetch(`http://localhost:3001/get-user-adviser-by-email?email=${email}`)
+            .then(response => response.json())
+            .then(data => {
+                setUserAdviser(data)
+            })
+        }
 
         // get application of student
         fetch(`http://localhost:3001/get-current-application-by-email?email=${email}`)
@@ -22,9 +32,15 @@ export default function AppAdviser(props) {
         .then(data => {
             if (data.success) {
                 setApplication(data.app)
-                setRemark(data.app.remarks[(data.app.remarks.length)-1].remark)
                 setLink(data.app.submission.link)
             }
+        })
+
+        // get latest remark of student
+        fetch(`http://localhost:3001/get-latest-remark-of-student?email=${email}`)
+        .then(response => response.text())
+        .then(data => {
+            setRemark(data)
         })
     }, [])
 

@@ -382,6 +382,34 @@ const getLatestRemarkOfCO = async (req, res) => {
   }
 };
 
+const getLatestRemarkOfStudent = async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.query.email });
+    if (!user) {
+      return res.status(404).send({ error: 'User not found.' });
+    }
+
+    //find the latest application id of user
+    if ((user.applications.length) == 0) {
+      res.send('None');
+    }
+    const latestApp = user.applications.slice(-1);
+    
+    //using the application id, get remarks
+    const application = await Application.findOne({ _id: latestApp })
+    let arr = application.remarks
+
+    let obj = arr.find(o => o.commenter === req.query.email);
+    if (obj) {
+      res.send(obj.remark)
+    } else {
+      res.send('None')
+    }
+  } catch (error) {
+    res.send('None')
+  }
+};
+
 export {
   addApplication,
   getAllApplications,
@@ -396,6 +424,7 @@ export {
   returnApplicationByEmail,
   getNumberOfApplications,
   getLatestRemarkOfAdviser,
-  getLatestRemarkOfCO
+  getLatestRemarkOfCO,
+  getLatestRemarkOfStudent
 };
 
