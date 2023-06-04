@@ -22,9 +22,11 @@ import Dashboard from './pages/Dashboard';
 import LogIn from './pages/LogIn';
 import ManageStudents from './pages/ManageStudents';
 import Signup from './pages/Signup';
+import HomePageAll from './pages/HomePageAll';
 
 // Send a POST request to API to check if the user is logged in. Redirect the user to /dashboard if already logged in
 const checkIfLoggedInOnHome = async () => {
+
   const res = await fetch("http://localhost:3001/checkifloggedin",
     {
       method: "POST",
@@ -34,7 +36,7 @@ const checkIfLoggedInOnHome = async () => {
   const payload = await res.json();
   
     if (payload.isLoggedIn) {
-      return redirect("/dashboard")
+      return redirect("/homepage")
     } else {
       return 0
     }
@@ -58,15 +60,16 @@ const checkIfLoggedInOnDash = async () => {
 }
 
 const router = createBrowserRouter([
-
   { path: '/login', element: <LogIn />, loader: checkIfLoggedInOnHome }, //page view for login with styles
   { path: '/signup', element: <Signup />, loader: checkIfLoggedInOnHome },            
   { path: '/', element: <NavBar />, loader:checkIfLoggedInOnDash, children:[
     { path: '/', element: <SideBar />, children:[
-      { path: '/dashboard', element: <Dashboard /> },       //page view of student managing applications
+      { path: '/dashboard', element: <Dashboard /> },            //page view of student managing applications
       { path: '/manage/acc', element: <ManageAccounts /> },      //page view of admin managing approvers
       { path: '/manage/stud', element: <ManageStudents /> },     //page view for admin for managing students
       { path: '/manage/apps', element: <ManageApps /> },         //page view for managing clearance requests on adviser's end (just change component/components' fields for CO)
+      { path: '/homepage', element: <HomePageAll />},            //default homepage
+
       ]
     },
     ]
@@ -76,7 +79,7 @@ const router = createBrowserRouter([
 
   { path: '/navbar', element: <NavBar />},                 //component for navigation bar 
   { path: '/sidebar', element: <SideBar />},               //component for side bar
-  { path: '/sidebutton', element: <SideButton />},     //component for buttons on side bar
+  { path: '/sidebutton', element: <SideButton />},         //component for buttons on side bar
   { path: '/clearance', element: <ClearanceForm />},       //component for clearance apply form
   { path: '/applist', element: <ApplicationList />},       //component for application already submitted
   { path: '/trialadviser', element: <AppAdviser />},       //component for sent application on adviser's end
@@ -84,7 +87,7 @@ const router = createBrowserRouter([
 
   { path: '/appform', element: <ApproversForm />},         //component for application form to be filled out
 
-  { path: '/viewstud', element: <StudentAccount />},         //component for students for viewing details by admin
+  { path: '/viewstud', element: <StudentAccount />},       //component for students for viewing details by admin
 ])
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

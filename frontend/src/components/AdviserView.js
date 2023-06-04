@@ -107,6 +107,7 @@ export default function AppAdviser(props) {
 
     return (
         <>
+        {/* fname nun   g student yon */}
         <div class="container w-[25%] h-min bg-100-payne rounded-lg flex justify-center flex-col pl-3 pr-10 pb-2 m-2">
             <div class="w-[100%] flex flex-col text-white content-center justify-start">
                 <div class="flex flex-col w-[100%] p-2 m-3 ">

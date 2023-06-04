@@ -35,7 +35,7 @@ export default function ManageApps() {
         <>
             <div class="w-[100%] flex flex-col">
                 <div class="flex justify-center container container mx-auto">
-                    <h1 class="font-extrabold flex text-4xl mt-20">
+                    <h1 class="font-extrabold flex text-4xl mt-10">
                         Clearance Requests
                     </h1>
                 </div>

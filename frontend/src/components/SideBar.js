@@ -2,15 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Outlet, useLoaderData, useNavigate } from 'react-router-dom';
 import Cookies from "universal-cookie";
 import SideButton from "./SideButton";
+import UserDetails from "./UserDetails";
 
 export default function SideBar() {
   const [isLoggedIn, setIsLoggedIn] = useState(useLoaderData());
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isLoggedIn) {
-      navigate(`/login`);
-    } else {
       fetch(`http://localhost:3001/get-user-by-email?email=${email}`)
       .then(response => response.json())
       .then(data => {
@@ -19,21 +17,24 @@ export default function SideBar() {
       .catch(error => {
         console.error("Failed to fetch user details:", error);
       });
-    }
   }, [isLoggedIn, navigate]);
 
-  function logout() {
-    const cookies = new Cookies();
-    cookies.remove("authToken");
-
-    localStorage.removeItem("username");
-    localStorage.removeItem("email");
-
-    setIsLoggedIn(false);
-  }
 
   const email = localStorage.getItem("email");
   const [user, setUser] = useState(null);
+
+  // function logout() {
+  //   const cookies = new Cookies();
+  //   cookies.remove("authToken");
+
+  //   localStorage.removeItem("username");
+  //   localStorage.removeItem("email");
+
+  //   setIsLoggedIn(false);
+  //   window.location.reload();
+  //   // navigate(`/login`);
+  // }
+
 
   // useEffect(() => {
   //   // fetch user data
@@ -44,32 +45,52 @@ export default function SideBar() {
     <>
       <div className="flex">
         <aside className="absolute h-screen w-60 sticky left-0 bg-100-charcoal">
-          <div className="flex flex-col items-center text-white mt-10">
-            {/* user details */}
-            {user && (
-              <>
-                <div className="flex w-20 h-20 rounded-full bg-black m-3">
-                  {/* <img className="rounded-full w-20 h-20" src="userimage.jpg" alt="image description" /> */}
-                </div>
-                <h1 className="font-extrabold self-center text-lg text-white">
-                  {user.fname} {(user.mname).charAt(0)}. {user.lname}
-                </h1>
-                <p className="pb-3">{user.email}</p>
-              </>
-            )}
+          <UserDetails/>
+          <div className="flex flex-col items-center text-white ">
             {/* buttons */}
-            <div>
+            <div class="mt-5">
+              <SideButton redirectLink="/homepage" label="Homepage" />
+              {user?.usertype == 1 && (
               <SideButton redirectLink="/dashboard" label="Dashboard" />
-              <SideButton redirectLink="/manage/acc" label="Manage Accounts" />
+              )
+              }
+              {user?.usertype == 2 && (
               <SideButton redirectLink="/manage/apps" label="Manage Applications" />
+              )
+              }
+              {user?.usertype == 3 && (
+              <SideButton redirectLink="/manage/apps" label="Manage Applications" />
+              )
+              }
+              {user?.usertype == 4 && (
+              <>
+              <SideButton redirectLink="/manage/acc" label="Manage Approvers" />
               <SideButton redirectLink="/manage/stud" label="Student Account Approval" />
+              </>
+              )
+              }
+
+              {/* <SideButton label="Log Out" onClick={logout} /> */}
 
               {/* temporary log out button */}
               <button
-                onClick={logout}
+                onClick={() => {
+                  const cookies = new Cookies();
+                  cookies.remove("authToken");
+                
+                  localStorage.removeItem("username");
+                  localStorage.removeItem("email");
+                
+                  setIsLoggedIn(false);
+                  window.location.reload();
+                    // navigate(`/login`);
+                }}
+                
                 className="flex flex-none flex-col rounded-md bg-100-payne pt-3 shadow shadow-p-dblue/50 hover:bg-black h-16 w-60 m-1"
               >
-                Log Out
+                <label class="bold self-start text-lg text-white mt-1 ml-5">
+                    Log Out
+                </label>
               </button>
             </div>
           </div>

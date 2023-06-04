@@ -47,6 +47,7 @@ export default function ApproversForm() {
               alert("Approver creation failed");
             }
           });
+          window.location.reload()
       }
 
     return (

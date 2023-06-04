@@ -2,6 +2,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import NavBar from "../components/NavBar";
+import logoclearance from "../images/logo.png";
 
 export default function Signup() {
 
@@ -58,10 +59,12 @@ export default function Signup() {
     <>
       <NavBar/>
       <div class="top-10 flex h-screen items-center self-center justify-center bg-100-payne flex-col p-5">
-      <div class="flex w-36 h-36 rounded-full bg-black">
-        {/* <img class="rounded-full w-36 h-36" src="userimage.jpg" alt="image description">
-        </img> */}
-      </div>
+        <img
+          src={logoclearance}
+          className="object-scale-down object-left w-36"
+          alt="Site Logo"
+          fill
+          />  
         <div className="rounded-xl px-16 py-8">
               <div className="item-center flex flex-col px-2 pb-0 pt-0 drop-shadow-md">
                 <h1 className="flex justify-center text-5xl font-extrabold text-white mb-5">

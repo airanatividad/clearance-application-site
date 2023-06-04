@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from 'universal-cookie';
 import NavBar from '../components/NavBar';
+import logoclearance from "../images/logo.png";
 
 export default function LogIn() {
 
@@ -12,7 +13,7 @@ export default function LogIn() {
   // redirect when login is successful
   useEffect(() => {
     if (isLoggedIn) {
-      navigate(`/dashboard`)
+      navigate(`/homepage`)
     }
   }, [isLoggedIn, navigate])
 
@@ -65,10 +66,14 @@ export default function LogIn() {
     <NavBar/>
 
     <div class="top-10 flex h-screen items-center self-center justify-center bg-100-payne flex-col">
-    <div class="flex w-36 h-36 rounded-full bg-black">
-      {/* <img class="rounded-full w-36 h-36" src="userimage.jpg" alt="image description">
-      </img> */}
-    </div>
+    {/* <div className="h-15 relative flex w-28 flex-col self-center rounded-full"> */}
+        <img
+        src={logoclearance}
+        className="object-scale-down object-left w-36"
+        alt="Site Logo"
+        fill
+        />
+    {/* </div> */}
       <div className="rounded-xl px-16 py-8">
             <div className="item-center flex flex-col px-2 pb-0 pt-0 drop-shadow-md">
               <h1 className="flex justify-center text-5xl font-extrabold text-white mb-5">

@@ -70,7 +70,7 @@ export default function ApplicationList(props) {
                 }
             })
         } else {
-            alert("Applicaiton already cancelled")
+            alert("Application already cancelled")
         }
     }   
 
