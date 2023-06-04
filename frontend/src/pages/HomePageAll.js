@@ -162,45 +162,55 @@ export default function HomePageAll() {
                 <div class="flex flex-col items-center place-content-center">
                     {/* <ApplicationList class="" email={email}/> */}
                 </div>  
-                <div class="flex flex-col items-left p-5 place-content-center mt-10 mx-20 bg-100-gwhite">
-                    <h1 class="font-bold">
-                        Notification
-                    </h1>
+{/* 
+                {!!(application?.adviserStatus == null && application?.coStatus == null) && (
+                     <>  
+                    <i>No Current Application</i>
+                     </>
+                )} */}
+                
+                {application?.adviserStatus != null && application?.coStatus != null && (
+                    <div class="flex flex-col items-left p-5 place-content-center mt-10 mx-20 bg-100-gwhite">
+                        <h1 class="font-bold">
+                            Notification
+                        </h1>
 
-                    {/* accepted adviser only */}
-                    {!!(application?.adviserStatus == "Cleared" && application?.coStatus == "Pending") && (
-                        <>
-                        <li>
-                            Your Application was Approved by your Adviser {adviser?.fname} {adviser?.mname} {adviser?.lname}. Kindly wait for the approval of your Clearance Officer {clearoff?.fname} {clearoff?.mname} {clearoff?.lname}.
-                        </li>
-                        </>
-                    )}
+                        {/* accepted adviser only */}
+                        {!!(application?.adviserStatus == "Cleared" && application?.coStatus == "Pending") && (
+                            <>
+                            <li>
+                                Your Application was Approved by your Adviser {adviser?.fname} {adviser?.mname} {adviser?.lname}. Kindly wait for the approval of your Clearance Officer {clearoff?.fname} {clearoff?.mname} {clearoff?.lname}.
+                            </li>
+                            </>
+                        )}
 
-                    {/* accepted both adviser and co */}
-                    {!!(application?.adviserStatus == "Cleared" && application?.coStatus == "Cleared") && (
-                        <>
-                        <li>
-                            Your Application was Approved by your Adviser {adviser?.fname} {adviser?.mname} {adviser?.lname} and Clearance Officer {clearoff?.fname} {clearoff?.mname} {clearoff?.lname}. You may now print your document.
-                        </li>
-                        </>
-                    )}
+                        {/* accepted both adviser and co */}
+                        {!!(application?.adviserStatus == "Cleared" && application?.coStatus == "Cleared") && (
+                            <>
+                            <li>
+                                Your Application was Approved by your Adviser {adviser?.fname} {adviser?.mname} {adviser?.lname} and Clearance Officer {clearoff?.fname} {clearoff?.mname} {clearoff?.lname}. You may now print your document.
+                            </li>
+                            </>
+                        )}
 
-                    {/* rejected adviser and/or co */}
-                    {!!(application?.adviserStatus == "Closed" | application?.coStatus == "Closed") && (
-                        <>  
-                        <li>
-                            Your Application was Rejected by your Adviser {adviser?.fname} {adviser?.mname} {adviser?.lname} and/or Clearance Officer {clearoff?.fname} {clearoff?.mname} {clearoff?.lname}. Kindly resolve you deficiency.
-                        </li>
-                        </>
-                    )}
+                        {/* rejected adviser and/or co */}
+                        {!!(application?.adviserStatus == "Closed" | application?.coStatus == "Closed") && (
+                            <>  
+                            <li>
+                                Your Application was Rejected by your Adviser {adviser?.fname} {adviser?.mname} {adviser?.lname} and/or Clearance Officer {clearoff?.fname} {clearoff?.mname} {clearoff?.lname}. Kindly resolve you deficiency.
+                            </li>
+                            </>
+                        )}
 
-                    {/* pending adviser and co */}
-                    {!!(application?.adviserStatus == "Pending" && application?.coStatus == "Pending") && (
-                        <>  
-                        <i>No Notifications Available</i>
-                        </>
-                    )}
-                </div>
+                        {/* pending adviser and co */}
+                        {!!(application?.adviserStatus == "Pending" && application?.coStatus == "Pending") && (
+                            <>  
+                            <i>No Notifications Available</i>
+                            </>
+                        )}
+                    </div>                    
+                )}
+
             </div>                    
         </>
 

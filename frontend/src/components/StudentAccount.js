@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function StudentAccount(props) {
   const { student, advisers } = props;
   const [selectedAdviser, setSelectedAdviser] = useState(null);
+  const [showPopUpReject, setShowPopUpReject] = useState(false);
+  const [showPopUpAccept, setShowPopupAccept] = useState(false);
 
   function approveUser() {
     if (selectedAdviser === null) {
@@ -42,6 +44,7 @@ export default function StudentAccount(props) {
       .then((body) => {
         if (body.success) {
           props.onChange(student._id);
+          setShowPopupAccept(false);
         } else {
           alert("Adviser could not be updated.");
         }
@@ -64,6 +67,8 @@ export default function StudentAccount(props) {
       .then((body) => {
         if (body.success) {
           props.onChange(student._id);
+          setShowPopUpReject(false);
+          
         } else {
           alert("User status could not be modified.");
         }
@@ -96,18 +101,62 @@ export default function StudentAccount(props) {
           <div className="flex flex-row">
             <button
               className=" mx-2 mt-3 rounded bg-100-charcoal px-4 py-2 text-white hover:bg-black"
-              onClick={approveUser}
+              onClick={() => setShowPopupAccept(true)}
             >
               Approve
             </button>
             <button
               className=" mx-2 mt-3 rounded bg-100-charcoal px-4 py-2 text-white hover:bg-black"
-              onClick={rejectUser}
+              onClick={() => setShowPopUpReject(true)}
             >
               Reject
-            </button>
+            </button> 
           </div>
         </div>
+
+        {/* POPUPS */}
+      {showPopUpReject && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="rounded-xl bg-white p-5">
+            <h1 className="flex justify-center">Reject This Student?</h1>
+            <div className="flex flex-row">
+              <button
+                className="mx-2 mt-4 rounded bg-100-charcoal px-4 py-2 text-white hover:bg-black"
+                onClick={rejectUser}
+                >
+                Yes
+              </button>
+              <button
+                className="mx-2 mt-4 rounded bg-100-charcoal px-4 py-2 text-white hover:bg-black"
+                onClick={() => setShowPopUpReject(false)}
+              >
+                No
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {showPopUpAccept && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="rounded-xl bg-white p-5">
+            <h1 className="flex justify-center">Approve This Student?</h1>
+            <div className="flex flex-row">
+              <button
+                className="mx-2 mt-4 rounded bg-100-charcoal px-4 py-2 text-white hover:bg-black"
+                onClick={approveUser}
+                >
+                Yes
+              </button>
+              <button
+                className="mx-2 mt-4 rounded bg-100-charcoal px-4 py-2 text-white hover:bg-black"
+                onClick={() => setShowPopupAccept(false)}
+              >
+                No
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       </div>
     </>
   );
