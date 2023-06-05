@@ -36,8 +36,8 @@ const login = async (req, res) => {
   // Check if email exists
   const user = await User.findOne({ email })
 
-  //  Scenario 1: FAIL - User doesn't exist
-  if (!user) {
+  //  Scenario 1 & 2: FAIL - User doesn't exist, FAIL - User account not approved
+  if (!user || user.status != "Approved") {
     return res.send({ success: false })
   }
 
