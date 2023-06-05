@@ -121,7 +121,13 @@ export default function ApplicationList(props) {
         });
     }
 
-
+    var date = new Date()
+    // var today = new Date();
+    var newdat = "Date Generated: "+ date;
+    // var day = date.getDate();
+    // var month = date.getMonth();
+    // var year = date.getFullYear();
+    // var newdat = day + '-' + month + '-' + year;
     return (
         <>{showButton &&
         <div class="container w-[68%] h-min bg-100-payne p-2 rounded-lg flex justify-center p-5 flex-col">
@@ -203,20 +209,31 @@ export default function ApplicationList(props) {
                                     </h2>                                     
                                 </div>
                             </div>
-                            <br/><br/>
-                            <p class="text-justify">
-                            This document provides information about student's clearance status.
+                            <br/><br/><br/><br/>
+                            <p>
+                                {newdat} <br/><br/>
                             </p>
-                            <br/>
+                            <p class="text-justify">
+                            This document certifies that {user?.fname} {user?.mname} {user?.lname}, {user?.studno} has satisfied the clearance requirements of the Institute.
+                            </p>
+                            {/* <hr
+                                style={{
+                                    color: "black",
+                                    backgroundColor: "white",
+                                    height: 5
+                                }}
+                            /> */}
+                            <br/><br/><br/>
                             <h1 class="">
-                                Name: <b>{user?.fname} {user?.mname} {user?.lname}</b><br/>
-                                Student Number: {user?.studno}<br/>
-                                Adviser: {adviser?.fname} {adviser?.mname} {adviser?.lname} <br/>
-                                Status: <b>{adviserStatus}</b>  <br/>
-                                Remark: {adviserRemark} <br/>
+                                Verified: <br/><br/>
+                                {/* Name: <b>{user?.fname} {user?.mname} {user?.lname}</b><br/>
+                                Student Number: {user?.studno}<br/> */}
+                                Academic Adviser: {adviser?.fname} {adviser?.mname} {adviser?.lname} <br/>
+                                {/* Status: <b>{adviserStatus}</b>  <br/>
+                                Remark: {adviserRemark} <br/> */}
                                 Clearance Officer: {clearoff?.fname} {clearoff?.mname} {clearoff?.lname} <br/>
-                                Status: <b>{coStatus}</b> <br/>
-                                Remark: {coRemark} <br/>
+                                {/* Status: <b>{coStatus}</b> <br/>
+                                Remark: {coRemark} <br/> */}
                             </h1>     
                             <br/>                       
                             <h1 class="text-white">
