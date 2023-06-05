@@ -106,7 +106,7 @@ export default function Dashboard() {
                         Clearance Application
                     </h1>
                 </div>
-                {!!(adviserStatus == "Pending" | coStatus == "Pending" | adviserStatus == "Closed" | coStatus == "Closed") && (
+                {!!(adviserStatus != "Cleared" | coStatus != "Cleared") && (
                 <div class="flex flex-col items-center p-5 place-content-center">
                     <ClearanceForm class="" adviser={adviser} email={email}/>
                 </div>  
