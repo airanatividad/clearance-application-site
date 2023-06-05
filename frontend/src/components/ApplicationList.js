@@ -28,7 +28,7 @@ export default function ApplicationList(props) {
     }, [])
 
     useEffect(() => {
-        fetch(`http://localhost:3001/get-user-co-by-email?email=${email}`)
+        fetch(`http://localhost:3001/get-user-by-email?email=clearanceofficer@up.edu.ph`)
         .then(response => response.json())
         .then(data => {
             setClearOff(data)
@@ -116,18 +116,18 @@ export default function ApplicationList(props) {
     function printComponent() {
         const component = document.getElementById('#pdf');
         html2canvas(component).then(canvas => {
-        const doc = new jsPDF();
-        doc.save('Clearance.pdf');
+            const doc = new jsPDF();
+            doc.save('Clearance.pdf');
         });
     }
 
-    var date = new Date()
-    // var today = new Date();
-    var newdat = "Date Generated: "+ date;
-    // var day = date.getDate();
-    // var month = date.getMonth();
-    // var year = date.getFullYear();
-    // var newdat = day + '-' + month + '-' + year;
+    var nowDate = new Date(); 
+    const newdat = nowDate.toLocaleDateString("en-GB", {
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+      })
+    
     return (
         <>{showButton &&
         <div class="container w-[68%] h-min bg-100-payne p-2 rounded-lg flex justify-center p-5 flex-col">
@@ -211,7 +211,7 @@ export default function ApplicationList(props) {
                             </div>
                             <br/><br/><br/><br/>
                             <p>
-                                {newdat} <br/><br/>
+                                {"Date Generated: "+ newdat} <br/><br/>
                             </p>
                             <p class="text-justify">
                             This document certifies that {user?.fname} {user?.mname} {user?.lname}, {user?.studno} has satisfied the clearance requirements of the Institute.
