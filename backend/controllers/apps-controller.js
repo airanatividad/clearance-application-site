@@ -339,7 +339,7 @@ const getLatestRemarkOfAdviser = async (req, res) => {
     const application = await Application.findOne({ _id: latestApp })
     let arr = application.remarks
 
-    let obj = arr.find(o => o.commenter === adviser.email);
+    let obj = arr.findLast(o => o.commenter === adviser.email);
     if (obj) {
       res.send(obj.remark)
     } else {
@@ -371,7 +371,7 @@ const getLatestRemarkOfCO = async (req, res) => {
     const application = await Application.findOne({ _id: latestApp })
     let arr = application.remarks
 
-    let obj = arr.find(o => o.commenter === 'clearanceofficer@up.edu.ph');
+    let obj = arr.findLast(o => o.commenter === 'clearanceofficer@up.edu.ph');
     if (obj) {
       res.send(obj.remark)
     } else {
@@ -399,7 +399,7 @@ const getLatestRemarkOfStudent = async (req, res) => {
     const application = await Application.findOne({ _id: latestApp })
     let arr = application.remarks
 
-    let obj = arr.find(o => o.commenter === req.query.email);
+    let obj = arr.findLast(o => o.commenter === req.query.email);
     if (obj) {
       res.send(obj.remark)
     } else {
