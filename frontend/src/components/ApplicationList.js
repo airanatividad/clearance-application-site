@@ -158,7 +158,7 @@ export default function ApplicationList(props) {
                 </div>
             </div>
 
-            {!!(application?.adviser == "Pending" | application?.coStatus == "Pending") && (
+            {!!(application?.adviserStatus == "Pending" | application?.coStatus == "Pending") && (
                 <>
                     <button
                         className=" mt-3 rounded bg-100-charcoal px-4 py-2 text-white hover:bg-black"
@@ -169,7 +169,7 @@ export default function ApplicationList(props) {
        
                 </>
             )}
-            {!!(application?.adviser == "Closed" | application?.coStatus == "Closed") && (
+            {!!(application?.adviserStatus == "Closed" | application?.coStatus == "Closed") && (
                 <h1 class=" flex justify-end text-xs text-white"><br/><br/>
                     If status is Closed, kindly settle your deficiency and resubmit another application.
                 </h1>
