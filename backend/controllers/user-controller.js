@@ -146,8 +146,8 @@ const getCOs = async (req, res) => {
 // Output: { success: Boolean }
 const updateUserByEmail = async (req, res) => {
   try {
-    const { fname, mname, lname, email, password, status, usertype } = req.body;
-    const user = await User.updateOne({ email: email },{$set:{fname: fname, mname: mname, lname: lname, password: password, status: status, usertype: usertype}})
+    const { fname, mname, lname, email, newEmail, password, status, usertype } = req.body;
+    const user = await User.updateOne({ email: email },{$set:{fname: fname, mname: mname, lname: lname, email: newEmail, password: password, status: status, usertype: usertype}})
     if (!user) {
       return res.status(404).send({ error: 'User not found.' });
     }

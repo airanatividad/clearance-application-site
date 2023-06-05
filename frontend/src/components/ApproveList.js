@@ -28,6 +28,45 @@ export default function ApproveList({ approver, onDelete }) {
     }
   
     // EDITTODO: put editApprover function here
+    function editApprover() {
+      const newFname = document.getElementById("n-fname").value;
+      const newMname = document.getElementById("n-mname").value;
+      const newLname = document.getElementById("n-lname").value;
+  
+      const newEmail = document.getElementById("n-email").value;
+      const newPassword = document.getElementById("n-password").value;
+
+      // form validation 
+      if (newFname === "" || newMname === "" || newLname === "" || newEmail === "" || newPassword === "") {
+        alert("Please enter all required fields.");
+        return;
+      }
+
+      fetch(`http://localhost:3001/update-user-by-email`, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ 
+          fname: newFname, 
+          mname: newMname, 
+          lname: newLname, 
+          email: email,
+          newEmail: newEmail, 
+          password: newPassword, 
+          usertype: document.querySelector('input[name="approverType"]:checked').value })
+        })
+        .then(response => response.json())
+        .then(body => {
+            if (body.success) {
+                alert("Successfully edited!")
+                setShowPopUpEdit(false) //close pop-up
+                window.location.reload(false); // reload only current page
+            } else {
+            alert("Failed to edit user account");
+            }
+        });
+    }
 
   return (
     <>
@@ -89,19 +128,19 @@ export default function ApproveList({ approver, onDelete }) {
                               <h1>
                                   First Name
                               </h1>
-                              <input id="s-fname" placeholder="First Name" class="p-2 rounded-md text-100-charcoal"/>
+                              <input id="n-fname" placeholder="First Name" class="p-2 rounded-md text-100-charcoal"/>
                           </div>
                           <div class="p-2">
                               <h1>
                                   Middle Name
                               </h1>
-                              <input id="s-mname" placeholder="Middle Name" class="p-2 rounded-md text-100-charcoal"/>
+                              <input id="n-mname" placeholder="Middle Name" class="p-2 rounded-md text-100-charcoal"/>
                           </div>      
                           <div class="p-2">
                               <h1>
                                   Last Name
                               </h1>
-                              <input id="s-lname" placeholder="Last Name" class="p-2 rounded-md text-100-charcoal"/>
+                              <input id="n-lname" placeholder="Last Name" class="p-2 rounded-md text-100-charcoal"/>
                           </div>              
                       </div>  
                       <div class="flex flex-row">
@@ -109,13 +148,13 @@ export default function ApproveList({ approver, onDelete }) {
                               <h1>
                                   UP Mail
                               </h1>
-                              <input id="s-email" placeholder="Email" class="w-[100%] p-2 rounded-md text-100-charcoal"/>
+                              <input id="n-email" placeholder="Email" class="w-[100%] p-2 rounded-md text-100-charcoal"/>
                           </div>
                           <div class="p-2">
                               <h1>
                                   Password
                               </h1>
-                              <input id="s-password" type="password" placeholder="Password" class="w-[100%] p-2 rounded-md text-100-charcoal"/>
+                              <input id="n-password" type="password" placeholder="Password" class="w-[100%] p-2 rounded-md text-100-charcoal"/>
                           </div>
                           <div class="p-2">
                               <h1>Approver type</h1>
@@ -138,7 +177,7 @@ export default function ApproveList({ approver, onDelete }) {
               <button
                 className="mx-2 mt-4 rounded bg-100-charcoal px-4 py-2 text-white hover:bg-black"
                 // EDITTODO: uncomment
-                // onClick={editApprover}
+                onClick={editApprover}
               >
                 Confirm
               </button>
