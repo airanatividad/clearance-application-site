@@ -117,7 +117,7 @@ export default function ApplicationList(props) {
         const component = document.getElementById('#pdf');
         html2canvas(component).then(canvas => {
         const doc = new jsPDF();
-        doc.save('Clearance.pdf');
+        // doc.save('Clearance.pdf');
         });
     }
 
