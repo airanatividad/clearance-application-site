@@ -310,7 +310,7 @@ const getStudentByAdviserEmail = async (req, res) => {
         const latestApp = user[i].applications.slice(-1);
         const application = await Application.findOne({ _id: latestApp})
 
-        if (user[i].applications.length != 0 && user[i].usertype == 1) {
+        if (user[i].applications.length != 0 && user[i].usertype == 1 && user[i].status == "Approved") {
           if (application.adviserStatus !== 'Closed' && application.coStatus !== 'Closed') {
             if (application.adviserStatus !== 'Cleared') {
               arr.push(user[i]);
@@ -336,7 +336,7 @@ const getStudentIfClearanceOfficer = async (req, res) => {
       const latestApp = user[i].applications.slice(-1);
       const application = await Application.findOne({ _id: latestApp})
 
-      if (user[i].applications.length != 0 && user[i].usertype == 1) {
+      if (user[i].applications.length != 0 && user[i].usertype == 1 && user[i].status == "Approved") {
         if (application.adviserStatus !== 'Closed' && application.coStatus !== 'Closed') {
           if (application.adviserStatus === 'Cleared' && application.coStatus !== 'Cleared') {
             arr.push(user[i]);

@@ -93,10 +93,11 @@ import needle from 'needle';
 
 // needle.get("http://localhost:3001/get-applications", (err,res) => {
 //     if (!err) {
-//         for (let app in res.body) {
-//             console.log(res.body[app].remarks) //get remarks
-//             console.log(res.body[app].submission) //get submission
-//         }
+//         // for (let app in res.body) {
+//         //     console.log(res.body[app].remarks) //get remarks
+//         //     console.log(res.body[app].submission) //get submission
+//         // }
+//         console.log(res.body)
 //     }
 // })
 
@@ -190,11 +191,11 @@ import needle from 'needle';
 //     }
 // })
 
-// needle.get("http://localhost:3001/get-current-application-by-email?email=jella@gmail.com", (err,res) => {
-//     if (!err) {
-//         console.log(res.body);
-//     }
-// })
+needle.get("http://localhost:3001/get-current-application-by-email?email=jella@gmail.com", (err,res) => {
+    if (!err) {
+        console.log(res.body);
+    }
+})
 
 // needle.post("http://localhost:3001/return-application-by-email", {
 //     email: "jella@gmail.com", //student
@@ -218,7 +219,7 @@ import needle from 'needle';
 // })
 
 
-// needle.get("http://localhost:3001/get-user-adviser-by-email?email=maxine@gmail.com", (err,res) => {
+// needle.get("http://localhost:3001/get-user-adviser-by-email?email=jella@gmail.com", (err,res) => {
 //     if (!err) {
 //         console.log(res.body);
 //     }
@@ -251,11 +252,11 @@ import needle from 'needle';
 //     }
 // })
 
-// needle.get("http://localhost:3001/get-current-application-by-email?email=annatividad@up.edu.ph", (err,res) => {
-//     if (!err) {
-//         console.log(res.body);
-//     }
-// })
+needle.get("http://localhost:3001/get-current-application-by-email?email=jella@gmail.com", (err,res) => {
+    if (!err) {
+        console.log(res.body);
+    }
+})
 
 // needle.post("http://localhost:3001/delete-application?email=annatividad@up.edu.ph", (err,res) => {
 //     if (!err) {
@@ -287,8 +288,8 @@ import needle from 'needle';
 //     }
 // })
 
-needle.get("http://localhost:3001/get-latest-remark-of-student?email=maxine@gmail.com", (err,res) => {
-    if (!err) {
-        console.log(res.body);
-    }
-})
+// needle.get("http://localhost:3001/get-latest-remark-of-student?email=maxine@gmail.com", (err,res) => {
+//     if (!err) {
+//         console.log(res.body);
+//     }
+// })
