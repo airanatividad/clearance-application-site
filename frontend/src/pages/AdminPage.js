@@ -12,17 +12,20 @@ export default function ManageAcc() {
         fetch("http://localhost:3001/get-advisers")
             .then((response) => response.json())
             .then((body) => {
-            setAdvisers(body);
+                if (!body.success) {
+                    setAdvisers(body);
+                }
             });
-    }, []);
 
-    useEffect(() => {
         fetch("http://localhost:3001/get-cos")
             .then((response) => response.json())
             .then((body) => {
-                setCOs(body);
+                if (!body.success) {
+                    setCOs(body);
+                }
             });
     }, []);
+
 
     function deleteHandler(id) {
         setAdvisers(prevAdvisers => prevAdvisers.filter(adviser => adviser._id !== id));
@@ -30,17 +33,17 @@ export default function ManageAcc() {
     }
 
     function sortAdvisers(e) {
-        if (e.target.value == 'adviser-ascending') {
+        if (e.target.value === 'adviser-ascending') {
             advisers.sort((sortBy('fname')));
-        } else if (e.target.value == 'adviser-descending') {
+        } else if (e.target.value === 'adviser-descending') {
             advisers.sort((sortBy('-fname')));
         }
     }
 
     function sortCO(e) {
-        if (e.target.value == 'co-ascending') {
+        if (e.target.value === 'co-ascending') {
             cos.sort((sortBy('fname')));
-        } else if (e.target.value == 'co-descending') {
+        } else if (e.target.value === 'co-descending') {
             cos.sort((sortBy('-fname')));
         }
     }

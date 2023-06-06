@@ -54,7 +54,7 @@ export default function ApproveList({ approver, onDelete }) {
           email: email,
           newEmail: newEmail, 
           password: newPassword, 
-          usertype: document.querySelector('input[name="approverType"]:checked').value })
+          usertype: document.querySelector('input[name="n-approverType"]:checked').value })
         })
         .then(response => response.json())
         .then(body => {
@@ -160,11 +160,11 @@ export default function ApproveList({ approver, onDelete }) {
                               <h1>Approver type</h1>
                               <div class="flex p-2">
                                   <label for="adviser" class="mr-3">
-                                  <input type="radio" id="adviser" name="approverType" value="2" checked />
+                                  <input type="radio" id="n-adviser" name="n-approverType" value="2" checked />
                                   Adviser
                                   </label>
                                   <label for="clearance-officer">
-                                  <input type="radio" id="clearance-officer" name="approverType" value="3" />
+                                  <input type="radio" id="n-clearance-officer" name="n-approverType" value="3" />
                                   Clearance Officer
                                   </label>
                               </div>

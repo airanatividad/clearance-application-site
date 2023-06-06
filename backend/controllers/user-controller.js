@@ -117,12 +117,12 @@ const addApprover = async (req, res) => {
 
 const getAdvisers = async (req, res) => {
   try {
-    const student = await User.find({usertype: 2});
-    if (!student) {
-      return res.status(404).send({ error: 'Approver not found.' });
+    const user = await User.find({usertype: 2});
+    if (!user) {
+      return res.send({ success: false });
     }
     // sends array of users
-    res.send(student);
+    res.send(user);
   } catch (error) {
     res.status(500).send({ error: 'Failed to retrieve approvers.' });
   }
@@ -130,12 +130,12 @@ const getAdvisers = async (req, res) => {
 
 const getCOs = async (req, res) => {
   try {
-    const student = await User.find({usertype: 3});
-    if (!student) {
-      return res.status(404).send({ error: 'Approver not found.' });
+    const user = await User.find({usertype: 3});
+    if (!user) {
+      return res.send({ success: false });
     }
     // sends array of users
-    res.send(student);
+    res.send(user);
   } catch (error) {
     res.status(500).send({ error: 'Failed to retrieve approvers.' });
   }
