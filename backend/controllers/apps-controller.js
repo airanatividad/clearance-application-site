@@ -371,7 +371,10 @@ const getLatestRemarkOfCO = async (req, res) => {
     const application = await Application.findOne({ _id: latestApp })
     let arr = application.remarks
 
-    let obj = arr.findLast(o => o.commenter === 'clearanceofficer@up.edu.ph');
+    // let obj = arr.findLast(o => o.commenter === 'clearanceofficer@up.edu.ph');
+    // regex. clearance officers email can only have this pattern
+    let obj = arr.findLast(o => /clearanceofficer.*@up.edu.ph/.test(o.commenter));
+    
     if (obj) {
       res.send(obj.remark)
     } else {
