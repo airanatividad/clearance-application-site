@@ -124,7 +124,7 @@ export default function StudentAccount(props) {
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="rounded-xl bg-white p-5">
             <h1 className="flex justify-center">Reject This Student?</h1>
-            <div className="flex flex-row">
+            <div className="flex flex-row justify-center align-center items-center">
               <button
                 className="mx-2 mt-4 rounded bg-100-charcoal px-4 py-2 text-white hover:bg-black"
                 onClick={rejectUser}
@@ -145,7 +145,7 @@ export default function StudentAccount(props) {
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="rounded-xl bg-white p-5">
             <h1 className="flex justify-center">Approve This Student?</h1>
-            <div className="flex flex-row ">
+            <div className="flex flex-row justify-center align-center items-center ">
               <button
                 className="mx-2 mt-4 rounded bg-100-charcoal px-4 py-2 text-white hover:bg-black"
                 onClick={approveUser}
