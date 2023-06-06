@@ -128,19 +128,19 @@ export default function ApproveList({ approver, onDelete }) {
                               <h1>
                                   First Name
                               </h1>
-                              <input id="n-fname" placeholder="First Name" class="p-2 rounded-md text-100-charcoal"/>
+                              <input id="n-fname" placeholder="First Name" defaultValue = {fname} class="p-2 rounded-md text-100-charcoal"/>
                           </div>
                           <div class="p-2">
                               <h1>
                                   Middle Name
                               </h1>
-                              <input id="n-mname" placeholder="Middle Name" class="p-2 rounded-md text-100-charcoal"/>
+                              <input id="n-mname" placeholder="Middle Name" defaultValue = {mname} class="p-2 rounded-md text-100-charcoal"/>
                           </div>      
                           <div class="p-2">
                               <h1>
                                   Last Name
                               </h1>
-                              <input id="n-lname" placeholder="Last Name" class="p-2 rounded-md text-100-charcoal"/>
+                              <input id="n-lname" placeholder="Last Name" defaultValue = {lname} class="p-2 rounded-md text-100-charcoal"/>
                           </div>              
                       </div>  
                       <div class="flex flex-row">
@@ -148,7 +148,7 @@ export default function ApproveList({ approver, onDelete }) {
                               <h1>
                                   UP Mail
                               </h1>
-                              <input id="n-email" placeholder="Email" class="w-[100%] p-2 rounded-md text-100-charcoal"/>
+                              <input id="n-email" placeholder="Email" defaultValue = {email} class="w-[100%] p-2 rounded-md text-100-charcoal"/>
                           </div>
                           <div class="p-2">
                               <h1>
