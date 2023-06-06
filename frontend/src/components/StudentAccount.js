@@ -83,11 +83,11 @@ export default function StudentAccount(props) {
     <>
       <div className="container w-[68%] h-min bg-100-payne p-2 rounded-lg flex justify-center p-5 flex-col m-1">
         <div className="flex flex-row text-white content-center items-center justify-between">
-          <h1 className="text-xl">
+          <h1 className="text-xl w-[20%]">
             {student.fname} {student.mname} {student.lname}
           </h1>
-          <h1 className="text-lg">{student.email}</h1>
-          <h1 className="text-lg">{student.studno}</h1>
+          <h1 className="text-lg p-5">{student.email}</h1>
+          <h1 className="text-lg p-5 w-[20%]">{student.studno}</h1>
 
           {/* Dropdown */}
           <select
@@ -103,15 +103,15 @@ export default function StudentAccount(props) {
             ))}
           </select>
 
-          <div className="flex flex-row">
+          <div className="flex flex-row justify-center align-center items-center p-3">
             <button
-              className=" mx-2 mt-3 rounded bg-100-charcoal px-4 py-2 text-white hover:bg-black"
+              className=" mx-2 rounded bg-100-charcoal px-4 py-2 text-white hover:bg-black justify-center align-center items-center"
               onClick={() => setShowPopupAccept(true)}
             >
               Approve
             </button>
             <button
-              className=" mx-2 mt-3 rounded bg-100-charcoal px-4 py-2 text-white hover:bg-black"
+              className=" mx-2 rounded bg-100-charcoal px-4 py-2 text-white hover:bg-black justify-center align-center items-center  "
               onClick={() => setShowPopUpReject(true)}
             >
               Reject
@@ -145,7 +145,7 @@ export default function StudentAccount(props) {
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="rounded-xl bg-white p-5">
             <h1 className="flex justify-center">Approve This Student?</h1>
-            <div className="flex flex-row">
+            <div className="flex flex-row ">
               <button
                 className="mx-2 mt-4 rounded bg-100-charcoal px-4 py-2 text-white hover:bg-black"
                 onClick={approveUser}
