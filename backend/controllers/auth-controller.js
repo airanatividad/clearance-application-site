@@ -7,7 +7,6 @@ const User = mongoose.model("User");
 const signUp = async (req, res) => {
   const newuser = new User({
     fname: req.body.fname,
-    mname: req.body.mname,
     lname: req.body.lname,
     studno: req.body.studno,
     
@@ -19,6 +18,10 @@ const signUp = async (req, res) => {
     applications: req.body.applications,
     adviser: null,
   });
+
+  if(req.body.mname){
+    newuser.mname = req.body.mname;
+  }
 
   const result = await newuser.save();
 

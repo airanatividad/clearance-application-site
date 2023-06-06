@@ -19,7 +19,7 @@ export default function Signup() {
     const password = document.getElementById("s-password").value;
     
     // form validation 
-    if (fname === "" || mname === "" || lname === "" || email === "" || password === "") {
+    if (fname === "" || lname === "" || email === "" || password === "") {
       alert("Please enter all required fields.");
       return;
     }
