@@ -2,56 +2,60 @@ import React, { useEffect, useState } from "react";
 
 export default function StudentAccount(props) {
   const { student, advisers } = props;
-  const [selectedAdviser, setSelectedAdviser] = useState(null);
+  const [selectedAdviser, setSelectedAdviser] = useState("");
   const [showPopUpReject, setShowPopUpReject] = useState(false);
   const [showPopUpAccept, setShowPopupAccept] = useState(false);
 
-  function approveUser() {
-    if (selectedAdviser === null) {
+  async function approveUser() {
+    console.log(advisers)
+    console.log(selectedAdviser)
+    if (selectedAdviser === "") {
       alert("Please select an adviser.");
       return;
     }
   
-    fetch("http://localhost:3001/update-user-status-by-email", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: student.email,
-        status: "Approved",
-      }),
-    })
-      .then((response) => response.json())
-      .then((body) => {
-        if (body.success) {
-          return fetch("http://localhost:3001/update-adviser-by-email", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              email: student.email,
-              adviser_id: selectedAdviser,
-            }),
-          });
-        } else {
-          alert("User status could not be modified.");
-          throw new Error("User status could not be modified.");
-        }
-      })
-      .then((response) => response.json())
-      .then((body) => {
-        if (body.success) {
-          props.onChange(student._id);
-          setShowPopupAccept(false);
-        } else {
-          alert("Adviser could not be updated.");
-        }
-      })
-      .catch((error) => {
-        console.log(error);
+    try {
+      const adviserResponse = await fetch("http://localhost:3001/update-adviser-by-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: student.email,
+          adviser_id: selectedAdviser,
+        }),
       });
+  
+      const adviserResult = await adviserResponse.json();
+  
+      if (!adviserResult.success) {
+        alert("Adviser could not be updated.");
+        throw new Error("Adviser could not be updated.");
+      }
+  
+      const statusResponse = await fetch("http://localhost:3001/update-user-status-by-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: student.email,
+          status: "Approved",
+        }),
+      });
+  
+      const statusResult = await statusResponse.json();
+  
+      if (!statusResult.success) {
+        alert("User status could not be modified.");
+        return;
+      }
+  
+      props.onChange(student._id);
+      setShowPopupAccept(false);
+    } catch (error) {
+      console.log(error);
+    }
   }
   
 
@@ -91,6 +95,7 @@ export default function StudentAccount(props) {
             onChange={(e) => setSelectedAdviser(e.target.value)}
             className="border rounded-md py-2 px-3 text-black"
           >
+          <option value="">Select an adviser</option>
             {advisers.map((adviser) => (
               <option key={adviser._id} value={adviser._id}>
                 {adviser.fname} {adviser.lname}
@@ -119,7 +124,7 @@ export default function StudentAccount(props) {
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="rounded-xl bg-white p-5">
             <h1 className="flex justify-center">Reject This Student?</h1>
-            <div className="flex flex-row justify-center items-center align-center self-center">
+            <div className="flex flex-row">
               <button
                 className="mx-2 mt-4 rounded bg-100-charcoal px-4 py-2 text-white hover:bg-black"
                 onClick={rejectUser}
@@ -140,7 +145,7 @@ export default function StudentAccount(props) {
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="rounded-xl bg-white p-5">
             <h1 className="flex justify-center">Approve This Student?</h1>
-            <div className="flex flex-row justify-center items-center align-center self-center">
+            <div className="flex flex-row">
               <button
                 className="mx-2 mt-4 rounded bg-100-charcoal px-4 py-2 text-white hover:bg-black"
                 onClick={approveUser}
