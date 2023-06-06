@@ -3,6 +3,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import logoclearance from "../images/logo.png";
+import passwordValidator from 'password-validator';
+import emailValidator from 'email-validator';
 
 export default function Signup() {
 
@@ -17,8 +19,22 @@ export default function Signup() {
     const password = document.getElementById("s-password").value;
     
     // form validation 
-    if (fname === "" || mname === "" || lname === "" || studno === "" || email === "" || password === "") {
+    if (fname === "" || mname === "" || lname === "" || email === "" || password === "") {
       alert("Please enter all required fields.");
+      return;
+    }
+
+    if (!emailValidator.validate(email)) {
+      alert("Please enter a valid email address.");
+      return;
+    }
+
+    const schema = new passwordValidator();
+    schema.is().min(8);               // Minimum length of 8
+    schema.has().digits();            // Must have digits
+
+    if (!schema.validate(password)) {
+      alert("Password must be at least 8 characters long and contain digits.");
       return;
     }
 

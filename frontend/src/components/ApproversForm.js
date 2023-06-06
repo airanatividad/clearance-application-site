@@ -1,4 +1,6 @@
 import React from "react";
+import passwordValidator from 'password-validator';
+import emailValidator from 'email-validator';
 
 export default function ApproversForm() {
 
@@ -16,7 +18,21 @@ export default function ApproversForm() {
           alert("Please enter all required fields.");
           return;
         }
+        if (!emailValidator.validate(email)) {
+            alert("Please enter a valid email address.");
+            return;
+          }
+      
+          const schema = new passwordValidator();
+          schema.is().min(8);               // Minimum length of 8
+          schema.has().digits();            // Must have digits
+      
+          if (!schema.validate(password)) {
+            alert("Password must be at least 8 characters long and contain digits.");
+            return;
+          }
     
+          
         fetch("http://localhost:3001/signup", {
           method: "POST",
           headers: {
