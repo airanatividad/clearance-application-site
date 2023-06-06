@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
+import bg from "../images/bg_all.png";
+import { ImageBackground, StyleSheet, Text, View } from 'react-native';
 import ApproveList from "../components/ApproveList";
 import ApproversForm from "../components/ApproversForm";
 var sortBy = require('sort-by');
+
 
 export default function ManageAcc() {
     const [advisers, setAdvisers] = useState([])
@@ -48,48 +51,64 @@ export default function ManageAcc() {
         }
     }
 
+    const styles = StyleSheet.create({
+        container: {
+          flex: 1,
+          flexDirection: 'column',
+        },
+        image: {
+          flex: 1,
+          resizeMode: 'cover',
+          justifyContent: 'start',
+        }})
+
     return (
         <>
-            <div class="w-[100%] flex flex-col">
-                <div class="flex justify-center container container mx-auto">
-                    <h1 class="font-extrabold flex text-4xl mt-20">
-                        Manage Approvers
-                    </h1>
-                </div>
-                <div class="flex flex-col items-center p-5 place-content-center">
-                    <ApproversForm class="" />
-                </div>  
-                <div class="flex flex-col items-center place-content-center">
-                    <h3 class="font-extrabold flex text-3xl">Advisers</h3>
-                    <select defaultValue={'DEFAULT'} onChange={(e) => {
-                        sortAdvisers(e)
-                        setSortState(e.target.value)
-                    }}>
-                        <option value="DEFAULT" disabled>Sort By</option>
-                        <option value="adviser-ascending">Ascending</option>
-                        <option value="adviser-descending">Descending</option>
-                    </select>
-                    {
-                        advisers.map((adviser, i) => 
-                            <ApproveList class="" approver={adviser} onDelete={deleteHandler}/>
-                        )
-                    }
-                    <h3 class="font-extrabold flex text-3xl" mt-10>Clearance Officers</h3>
-                    <select defaultValue={'DEFAULT'} onChange={(e) => {
-                        sortCO(e)
-                        setSortState(e.target.value)
-                    }}>
-                        <option value="DEFAULT" disabled>Sort By</option>
-                        <option value="co-ascending">Ascending</option>
-                        <option value="co-descending">Descending</option>
-                    </select> 
-                    {
-                        cos.map((co, i) => 
-                            <ApproveList class="" approver={co} onDelete={deleteHandler}/>
-                        )
-                    }
-                </div>  
-            </div>                 
+        <View style={styles.container}>
+            <ImageBackground source={bg} style={styles.image}>
+                <div class="w-[100%] flex flex-col">
+                    <div class="flex justify-center container container mx-auto">
+                        < h1 class="font-extrabold flex self-center justify-center text-100-charcoal text-4xl p-5">
+                            Manage Approvers
+                        </h1>
+                    </div>
+                    <div class="flex flex-col items-center p-5 place-content-center">
+                        <ApproversForm class="" />
+                    </div>  
+                    <div class="flex flex-col items-center place-content-center">
+                    < h3 class="font-extrabold flex self-center justify-center text-100-charcoal text-3xl p-5">Advisers</h3>
+                        <select defaultValue={'DEFAULT'} class="bg-100-charcoal text-white " onChange={(e) => {
+                            sortAdvisers(e)
+                            setSortState(e.target.value)
+                        }}>
+                            <option value="DEFAULT" disabled>Sort By</option>
+                            <option value="adviser-ascending">Ascending</option>
+                            <option value="adviser-descending">Descending</option>
+                        </select>
+                        {
+                            advisers.map((adviser, i) => 
+                                <ApproveList class="" approver={adviser} onDelete={deleteHandler}/>
+                            )
+                        }
+                    < h3 class="font-extrabold flex self-center justify-center text-100-charcoal text-3xl p-5">Clearance Officers</h3>
+                        <select class="bg-100-charcoal text-white " defaultValue={'DEFAULT'} onChange={(e) => {
+                            sortCO(e)
+                            setSortState(e.target.value)
+                        }}>
+                            <option value="DEFAULT" disabled>Sort By</option>
+                            <option value="co-ascending">Ascending</option>
+                            <option value="co-descending">Descending</option>
+                        </select> 
+                        {
+                            cos.map((co, i) => 
+                                <ApproveList class="" approver={co} onDelete={deleteHandler}/>
+                            )
+                        }
+                    </div>  
+                </div>                   
+            </ImageBackground>
+        </View>
+              
         </>
 
     );

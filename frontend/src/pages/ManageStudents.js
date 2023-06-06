@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import bg from "../images/bg_all.png";
+import { ImageBackground, StyleSheet, Text, View } from 'react-native';
 import StudentAccount from "../components/StudentAccount";
 var sortBy = require('sort-by');
 
@@ -37,34 +39,52 @@ export default function ManageStudents() {
             students.sort((sortBy('-studno')));
         }
     }
+
+
+    const styles = StyleSheet.create({
+        container: {
+          flex: 1,
+          flexDirection: 'column',
+        },
+        image: {
+          flex: 1,
+          resizeMode: 'cover',
+          justifyContent: 'start',
+        }})
+
     return (
         <>
-            <div class="w-[100%] flex flex-col">
-                <div class="flex justify-center container container mx-auto">
-                    <h1 class="font-extrabold flex text-4xl mt-20 mb-5">
-                        Manage Students
-                    </h1>
-                </div>
-                <div class="flex flex-col items-center place-content-center">
-                    <select defaultValue={'DEFAULT'} onChange={(e) => {
-                        sortAccounts(e)
-                        setSortState(e.target.value)
-                        }}>
-                        <option value="DEFAULT" disabled>Sort By</option>
-                        <option value="name-ascending">Name (Ascending)</option>
-                        <option value="name-descending">Name (Descending)</option>
-                        <option value="studno-ascending">Student Number (Ascending)</option>
-                        <option value="studno-descending">Student Number (Descending)</option>
-                    </select>
-                </div>
-                <div class="flex flex-col items-center place-content-center">
-                    {
-                        students.map((student, i) => 
-                            <StudentAccount class="" student={student} advisers={advisers} onChange={changeHandler} />
-                        )
-                    }
-                </div>  
-            </div>             
+        <View style={styles.container}>
+            <ImageBackground source={bg} style={styles.image}>
+                <div class="w-[100%] flex flex-col">
+                    <div class="flex justify-center container container mx-auto">
+                        <h1 class="font-extrabold flex self-center justify-center text-100-charcoal text-4xl p-5">
+                            Manage Students
+                        </h1>
+                    </div>
+                    <div class="flex flex-col items-center place-content-center">
+                        <select defaultValue={'DEFAULT'} class="bg-100-charcoal text-white " onChange={(e) => {
+                            sortAccounts(e)
+                            setSortState(e.target.value)
+                            }}>
+                            <option value="DEFAULT" disabled>Sort By</option>
+                            <option value="name-ascending">Name (Ascending)</option>
+                            <option value="name-descending">Name (Descending)</option>
+                            <option value="studno-ascending">Student Number (Ascending)</option>
+                            <option value="studno-descending">Student Number (Descending)</option>
+                        </select>
+                    </div>
+                    <div class="flex flex-col items-center place-content-center">
+                        {
+                            students.map((student, i) => 
+                                <StudentAccount class="" student={student} advisers={advisers} onChange={changeHandler} />
+                            )
+                        }
+                    </div>  
+                </div>       
+            </ImageBackground>
+        </View>
+      
         </>
 
     );

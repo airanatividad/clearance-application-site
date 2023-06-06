@@ -5,6 +5,8 @@ import NavBar from "../components/NavBar";
 import logoclearance from "../images/logo.png";
 import passwordValidator from 'password-validator';
 import emailValidator from 'email-validator';
+import bg from "../images/bg_signup.png";
+import { ImageBackground, StyleSheet, Text, View } from 'react-native';
 
 export default function Signup() {
 
@@ -71,39 +73,54 @@ export default function Signup() {
       });
   }
 
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      flexDirection: 'column',
+    },
+    image: {
+      flex: 1,
+      resizeMode: 'cover',
+      justifyContent: 'center',
+    }})
+
   return (
     <>
-      <NavBar/>
-      <div class="top-10 flex h-screen items-center self-center justify-center bg-100-payne flex-col p-5">
-        <img
-          src={logoclearance}
-          className="object-scale-down object-left w-36"
-          alt="Site Logo"
-          fill
-          />  
-        <div className="rounded-xl px-16 py-8">
-              <div className="item-center flex flex-col px-2 pb-0 pt-0 drop-shadow-md">
-                <h1 className="flex justify-center text-5xl font-extrabold text-white mb-5">
-                Sign Up
-                </h1>
-              </div>
-              <form id="sign-up" class="flex flex-col">
-                <input id="s-fname" placeholder="First Name" class="w-96 p-2 m-2 rounded-md" />
-                <input id="s-mname" placeholder="Middle Name" class="p-2 m-2 rounded-md" />
-                <input id="s-lname" placeholder="Last Name"  class="p-2 m-2 rounded-md"/>
-                <input id="s-studno" placeholder="Student Number" class="p-2 m-2 rounded-md" />
-                <input id="s-email" placeholder="Email" class="p-2 m-2 rounded-md"/>
-                <input id="s-password" type="password" placeholder="Password" class="p-2 m-2 rounded-md"/>
-                <button class="p-2 m-2 rounded-md bg-100-charcoal text-white hover:bg-black" onClick={signUp}>Sign Up</button>
-              </form>
+    <View style={styles.container}>
+      <ImageBackground source={bg} style={styles.image}>
+        <div class="top-10 flex h-screen items-center self-center justify-center flex-col p-2 ">
+          <img
+            src={logoclearance}
+            className="object-scale-down object-left w-36"
+            alt="Site Logo"
+            fill
+            />  
+          <div className="rounded-xl px-16 py-8">
+                <div className="item-center flex flex-col px-2 pb-0 pt-0 drop-shadow-md">
+                  <h1 className="flex justify-center text-5xl font-extrabold text-white mb-5">
+                  Sign Up
+                  </h1>
+                </div>
+                <form id="sign-up" class="flex flex-col">
+                  <input id="s-fname" placeholder="First Name" class="w-96 p-2 m-2 rounded-md" />
+                  <input id="s-mname" placeholder="Middle Name" class="p-2 m-2 rounded-md" />
+                  <input id="s-lname" placeholder="Last Name"  class="p-2 m-2 rounded-md"/>
+                  <input id="s-studno" placeholder="Student Number" class="p-2 m-2 rounded-md" />
+                  <input id="s-email" placeholder="Email" class="p-2 m-2 rounded-md"/>
+                  <input id="s-password" type="password" placeholder="Password" class="p-2 m-2 rounded-md"/>
+                  <button class="p-2 m-2 rounded-md bg-100-payne text-white hover:bg-black" onClick={signUp}>Sign Up</button>
+                </form>
+          </div>
+        <div class="flex justify-center content-center ">
+          <label className="flex pl-3 text-sm text-white ">
+            Already have an account?
+          </label>
+          <Link to={`/login`} class="pl-1 text-sm text-white underline">Login</Link>      
         </div>
-      <div class="flex justify-center content-center ">
-        <label className="flex pl-3 text-sm text-white ">
-          Already have an account?
-        </label>
-        <Link to={`/login`} class="pl-1 text-sm text-white underline">Login</Link>      
       </div>
-    </div>
+      </ImageBackground>
+    </View>
+
     </>
 
   );

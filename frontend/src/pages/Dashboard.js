@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Outlet, useLoaderData, useNavigate } from 'react-router-dom';
 import ApplicationList from "../components/ApplicationList";
 import ClearanceForm from "../components/ClearanceForm";
+import bg from "../images/bg_all.png";
+import { ImageBackground, StyleSheet, Text, View } from 'react-native';
 
 export default function Dashboard() {
 
@@ -98,24 +100,41 @@ export default function Dashboard() {
         }
     }, [appNumber])
 
+
+    const styles = StyleSheet.create({
+        container: {
+          flex: 1,
+          flexDirection: 'column',
+        },
+        image: {
+          flex: 1,
+          resizeMode: 'cover',
+          justifyContent: 'start',
+        }})
+
     return (
         <>
-            <div class="w-[100%] flex flex-col">
-                <div class="flex justify-center container container mx-auto">
-                    <h1 class="font-extrabold flex text-4xl mt-10">
-                        Clearance Application
-                    </h1>
-                </div>
-                {!!(adviserStatus != "Cleared" | coStatus != "Cleared") && (
-                <div class="flex flex-col items-center p-5 place-content-center">
-                    <ClearanceForm class="" adviser={adviser} email={email}/>
-                </div>  
-                )}
+        <View style={styles.container}>
+            <ImageBackground source={bg} style={styles.image}>
+                <div class="w-[100%] flex flex-col">
+                    <div class="flex justify-center container container mx-auto p-5">
+                        <h1 class="font-extrabold flex self-center justify-center text-100-charcoal text-4xl p-5">
+                            Clearance Application
+                        </h1>
+                    </div>
+                    {!!(adviserStatus != "Cleared" | coStatus != "Cleared") && (
+                    <div class="flex flex-col text-white items-center p-5 place-content-center">
+                        <ClearanceForm class="" adviser={adviser} email={email}/>
+                    </div>  
+                    )}
 
-                <div class="flex flex-col items-center place-content-center mt-5">
-                    <ApplicationList class="" email={email}/>
-                </div>  
-            </div>                    
+                    <div class="flex flex-col items-center place-content-center mt-5">
+                        <ApplicationList class="" email={email}/>
+                    </div>  
+                </div>    
+            </ImageBackground>
+        </View>
+                
         </>
 
     );
