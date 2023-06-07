@@ -59,6 +59,9 @@ export default function LogIn() {
           localStorage.setItem("username", body.username);
           localStorage.setItem("email", body.email);
         }
+        else if (!body.success && body.reason == 'status') {
+          alert('Account not approved.')
+        }
         else { alert("Log in failed")}
       })
   }

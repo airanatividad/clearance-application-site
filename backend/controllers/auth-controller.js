@@ -41,14 +41,14 @@ const login = async (req, res) => {
 
   //  Scenario 1 & 2: FAIL - User doesn't exist, FAIL - User account not approved
   if (!user || user.status != "Approved") {
-    return res.send({ success: false })
+    return res.send({ success: false, reason: 'status' })
   }
 
   // Check if password is correct using the Schema method defined in User Schema
    user.comparePassword(password, (err, isMatch) => {
     if (err || !isMatch) {
       // Scenario 2: FAIL - Wrong password
-      return res.send({ success: false });
+      return res.send({ success: false, reason: 'password' });
     }
 
     // Scenario 3: SUCCESS - time to create a token
